@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Livewire\Admin\DashboardComponent;
+use App\Livewire\Admin\AnneeComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +43,9 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    //Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/admin/home', DashboardComponent::class)->name('admin.home');
+    Route::get('/admin/annee', AnneeComponent::class)->name('admin.annee');
 });
 
 /*------------------------------------------
