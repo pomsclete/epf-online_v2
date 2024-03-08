@@ -69,7 +69,7 @@
                     <ul id="dashboard{{ $i }}" data-type="collapsed" class="sidebar-submenu [&.active]:block hidden {{ ($is_active) ? 'active' : '' }}">
                       @foreach ($section->section_list as $child)
                         <li>
-                          <a  href="{{ route($child->href) }}"  wire:navigate class="flex items-center py-3 pl-12 pr-6 mb-1 leading-none gap-2.5 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-primary-600/[0.08] dark:[&.active]:bg-primary-200/10 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
+                          <a  href="{{ route($child->href) }}"  wire:navigate class="{{ Request::routeIs($child->href) ? 'active' : '' }} flex items-center py-3 pl-12 pr-6 mb-1 leading-none gap-2.5 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-primary-600/[0.08] dark:[&.active]:bg-primary-200/10 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
                             {{ $child->text }}
                           </a>
                         </li>

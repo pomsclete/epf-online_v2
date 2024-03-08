@@ -131,7 +131,7 @@
 
       <div class="relative">
         <button data-type="dropdown" data-target="#dropdown1" class="btn w-12 h-12 gap-x-2 py-2.5 flex items-center gap-2 justify-center rounded-full text-sm tracking-[0.15px]">
-          <img src="../src/img/avatar.png" alt="ari budin" class="w-10 h-10 flex-none rounded-full bg-primary-600 dark:bg-primary-200">
+          <img src="{{ asset('admin/src/img/avatar.png') }}" alt="ari budin" class="w-10 h-10 flex-none rounded-full bg-primary-600 dark:bg-primary-200">
         </button>
 
         <!-- menus -->
