@@ -35,10 +35,10 @@
                             <thead>
                             <tr>
 
-                                <th data-sortable="false">Libelle</th>
-                                <th data-sortable="false">Date de création</th>
-                                <th data-sortable="false">Dernieres modifcation</th>
-                                <th data-sortable="false">Actions</th>
+                                <th style="font-weight: bold">Libelle</th>
+                                <th style="font-weight: bold">Date de création</th>
+                                <th style="font-weight: bold">Dernieres modifcation</th>
+                                <th style="font-weight: bold">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -85,7 +85,10 @@
         <div class="z-50 flex flex-col w-11/12 sm:w-[480px] h-auto bg-surface-100 dark:bg-surfacedark-100 rounded-[28px]">
             <div class="flex flex-col gap-4 justify-start py-6">
                 <div class="flex justify-between items-center px-6">
-                    <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">Ajouter une année scolaire</h3>
+                    <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">
+                        {{ ($editModalOpen) ? "Modifier l'année scolaire" : "Ajouter une année scolaire" }}
+
+                    </h3>
 
                     <!-- close -->
                     <div data-close="#dialog_a" class="material-symbols-outlined cursor-pointer">close</div>
@@ -100,7 +103,9 @@
                     </div>
                     <div class="relative">
                         <button wire:click.prevent="store()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
-                            <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">Ajouter une année</span>
+                            <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">
+                                 {{ ($editModalOpen) ? "Mettre à jour" : " Ajouter une année" }}
+                            </span>
                         </button>
                     </div>
                 </form>

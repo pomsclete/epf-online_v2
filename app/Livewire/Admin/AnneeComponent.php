@@ -31,6 +31,8 @@ class AnneeComponent extends Component
     public function openModal()
     {
         $this->isFormOpen = true;
+        $this->editModalOpen = false;
+        $this->resetData();
     }
 
     public function sortBy($field)
@@ -43,11 +45,17 @@ class AnneeComponent extends Component
 
     // For Delete Feature Start
 
+    public function resetData(){
+        $this->rId = null;
+        $this->titre= null;
+        $this->resetValidation();
+    }
 
     public function closeModal()
     {
         $this->isFormOpen = false;
-        $this->reset();
+        $this->editModalOpen = false;
+        $this->resetData();
     }
 
     public function delete()
@@ -75,12 +83,16 @@ class AnneeComponent extends Component
                 }
             }
             $this->isFormOpen = true;
+            $this->editModalOpen = true;
             Alert::success('Success', 'Année scolaire enregistrée avec succés');
 
         } catch (\Exception $ex) {
             Alert::warning('Warning', 'Something goes wrong!!');
         }
     }
+
+
+
     public function store()
     {
         $ruleFields = [
@@ -88,10 +100,20 @@ class AnneeComponent extends Component
         ];
         $validatedData = $this->validate($ruleFields);
         try {
-            Annee::create([
+            $anneeQuery = Annee::query();
+            if (!empty($this->rId)) {
+                $year = $anneeQuery->find($this->rId);
+                if ($year) {
+                    $year->update($validatedData);
+                }
+            } else {
+                $anneeQuery->create($validatedData);
+            }
+           /* Annee::create([
                     'titre' => $this->titre
-            ]);
+            ]);*/
             $this->closeModal();
+
             Alert::success('Success', 'Année scolaire enregistrée avec succés');
         } catch (\Exception $ex) {
             session()->flash('success', 'Something goes wrong!!');

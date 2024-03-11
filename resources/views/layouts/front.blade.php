@@ -32,7 +32,7 @@
         </svg>
       </div>
     </div>
-    @include('extends.side-bar')
+   @include('extends.side-bar')
         <main class="lg:flex">
             @include('extends.aside')
              @yield('content')
