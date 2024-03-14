@@ -44,7 +44,7 @@
                             <tbody>
                             @forelse($records as $record)
                                  <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
-                                     <td>{{ $record->titre }}</td>
+                                     <td>{{ $record->annee_scolaire }}</td>
                                      <td>{{ $record->created_at }}</td>
                                     <td>{{ $record->updated_at }}</td>
                                     <td>
@@ -63,11 +63,15 @@
                                     </td>
                                 </tr>
                             @empty
-                                <div class="flex justify-center items-center">
-                                    <span class="font-medium py-8 text-gray-400 text-xl">
-                                        No data found...
-                                    </span>
-                                </div>
+                            <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
+                                <td colspan="4">
+                                    <div class="flex justify-center items-center">
+                                        <span class="font-medium py-8 text-gray-400 text-xl">
+                                            No data found...
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforelse
                             </tbody>
                         </table>
@@ -97,10 +101,11 @@
                 <!-- Form -->
                 <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
                     <div class="relative z-0">
-                        <input type="text" aria-label="deal1" wire:model="titre" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
+                        <input type="text" aria-label="deal1" wire:model="annee_scolaire" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
 
                         <label for="deal1" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Année scolaire</label>
                     </div>
+                    <div class="text-red-800 text-xs">@error('annee_scolaire') {{ $message }} @enderror</div>
                     <div class="relative">
                         <button wire:click.prevent="store()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
                             <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">

@@ -7,15 +7,17 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
-Use Alert;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+
 
 
 class AnneeComponent extends Component
 {
     use WithPagination;
+    use LivewireAlert;
 
     public $perPage = 10;
-    public $sortField = 'titre';
+    public $sortField = 'annee_scolaire';
     public $sortDirection = 'asc';
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -23,7 +25,7 @@ class AnneeComponent extends Component
     //Form Field
     public $rId = null;
     public $isFormOpen = false;
-    public $titre;
+    public $annee_scolaire;
     //Action
     public $dId = '';
     public $editModalOpen = false;
@@ -47,7 +49,7 @@ class AnneeComponent extends Component
 
     public function resetData(){
         $this->rId = null;
-        $this->titre= null;
+        $this->annee_scolaire= null;
         $this->resetValidation();
     }
 
@@ -79,15 +81,14 @@ class AnneeComponent extends Component
             if (!empty($this->rId)) {
                 $year = Annee::find($this->rId);
                 if ($year) {
-                    $this->titre = $year->titre;
+                    $this->annee_scolaire = $year->annee_scolaire;
                 }
             }
             $this->isFormOpen = true;
             $this->editModalOpen = true;
-            Alert::success('Success', 'Année scolaire enregistrée avec succés');
 
         } catch (\Exception $ex) {
-            Alert::warning('Warning', 'Something goes wrong!!');
+            $this->alert('warning', 'Something goes wrong!!');
         }
     }
 
@@ -96,7 +97,7 @@ class AnneeComponent extends Component
     public function store()
     {
         $ruleFields = [
-            'titre' => 'required',
+            'annee_scolaire' => 'required',
         ];
         $validatedData = $this->validate($ruleFields);
         try {
@@ -109,14 +110,10 @@ class AnneeComponent extends Component
             } else {
                 $anneeQuery->create($validatedData);
             }
-           /* Annee::create([
-                    'titre' => $this->titre
-            ]);*/
             $this->closeModal();
-
-            Alert::success('Success', 'Année scolaire enregistrée avec succés');
+            $this->alert('success', 'Enregistrement éffectué avec succés');
         } catch (\Exception $ex) {
-            session()->flash('success', 'Something goes wrong!!');
+            $this->alert('warning', 'Something goes wrong!!');
         }
     }
 
