@@ -6,7 +6,6 @@
       <!-- Form -->
       <div class="flex flex-col gap-6 text-gray-600 dark:text-gray-400">
         <div class="relative">
-          <h2 class="text-headline-sm text-gray-900 dark:text-gray-100 mb-1 text-center">Bienvenue sur EPF ONLINE</h2>
           <div class="relative flex flex-row items-center justify-center">
             <img src="{{ asset('front/img/logoEpf.png') }}" alt="Logo de EPF">
           </div>
@@ -83,9 +82,9 @@
         <div class="relative">
           <a href="../analytics/analytics-dashboard.html" class="sidebar-logo py-6 flex items-center w-full">
             <div class="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-primary-800 font-bold text-lg">
-              <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">G</span>
+              <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">AF</span>
             </div>
-            <h4 class="text-2xl md:text-4xl font-medium tracking-wide text-white ml-2 md:ml-4">Goodash</h4>
+            <h4 class="text-2xl md:text-4xl font-medium tracking-wide text-white ml-2 md:ml-4">Bienvenue sur EPF ONLINE</h4>
           </a>
         </div>
       </div>

@@ -44,9 +44,9 @@
                             <tbody>
                             @forelse($records as $record)
                                  <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
-                                     <td>{{ $record->annee_scolaire }}</td>
-                                     <td>{{ $record->created_at }}</td>
-                                    <td>{{ $record->updated_at }}</td>
+                                     <td>{{$record->annee_scolaire }}</td>
+                                     <td>{{  \Carbon\Carbon::parse($record->created_at)->format('d-m-Y H:m:s') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($record->updated_at)->format('d-m-Y H:m:s') }}</td>
                                     <td>
                                         <button wire:click="edit('{{ $record->id }}')"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -76,6 +76,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="py-3">
+                    {{ $records->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
         </div>

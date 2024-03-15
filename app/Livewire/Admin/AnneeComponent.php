@@ -16,7 +16,7 @@ class AnneeComponent extends Component
     use WithPagination;
     use LivewireAlert;
 
-    public $perPage = 10;
+    public $perPage = 2;
     public $sortField = 'annee_scolaire';
     public $sortDirection = 'asc';
 
@@ -29,6 +29,9 @@ class AnneeComponent extends Component
     //Action
     public $dId = '';
     public $editModalOpen = false;
+    protected $listeners = [
+        'confirmed'
+    ];
 
     public function openModal()
     {
@@ -60,19 +63,32 @@ class AnneeComponent extends Component
         $this->resetData();
     }
 
-    public function delete()
+   public function deleteId($id){
+       $this->dId = $id;
+       $this->alert('warning', 'Confirmer pour supprimer', [
+        'showConfirmButton' => true,
+        'confirmButtonText' => 'Confirmer',
+        'showCancelButton' => true,
+        'cancelButtonText' => 'Annuler',
+        'onConfirmed' => 'confirmed',  
+        'allowOutsideClick' => false,
+        'timer' => null
+    ]);
+   }
+
+   public function confirmed()
     {
         try {
             $year = Annee::find($this->dId);
             if ($year) {
                 $year->delete();
             }
-            $this->closeDelete();
-            session()->flash('success', 'Record deleted successfully!!');
+            $this->alert('success', 'Année supprimée avec succès!!');
         } catch (\Exception $ex) {
-            session()->flash('success', 'Something goes wrong!!');
+            $this->alert('success', 'Something goes wrong!!');
         }
     }
+
     // Create and Update Feature Start
     public function edit($id = null)
     {
