@@ -7,8 +7,7 @@
         <div class="main-content flex-grow min-h-[100%] py-20 relative px-4 lg:pr-8 lg:pl-3">
             <!-- heading -->
             <div class="flex flex-row justify-between items-center pt-2 pb-6">
-                <h2 class="text-title-lg">Années scolaires</h2>
-
+                @livewire('search-component')
                 <!-- action -->
                 <div class="flex flex-row gap-3 items-center">
                     <!-- hidden action -->
@@ -29,6 +28,13 @@
             <div class="grid grid-cols-1 sm:gap-4 md:gap-6">
                 <!-- card -->
                 <div class="px-6 py-8 flex flex-col rounded-xl bg-white dark:bg-gray-900">
+                    <div class="pb-4 flex justify-center">
+                        <button class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
+                            <span class="material-symbols-outlined">
+                                calendar_month
+                                </span> Années Scolaires
+                          </button>
+                    </div>
                     <div class="relative overflow-auto scrollbars">
                         <!-- customers table -->
                         <table class="table-sorter table-bordered-bottom table-hover">
@@ -78,7 +84,7 @@
                     </div>
                 </div>
                 <div class="py-3">
-                    {{ $records->links('vendor.pagination.tailwind') }}
+                    {{ $records->links() }}
                 </div>
             </div>
         </div>

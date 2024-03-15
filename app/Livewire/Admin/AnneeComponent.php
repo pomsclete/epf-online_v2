@@ -7,6 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 
@@ -14,6 +15,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class AnneeComponent extends Component
 {
     use WithPagination;
+    use WithoutUrlPagination;
     use LivewireAlert;
 
     public $perPage = 2;
@@ -84,6 +86,7 @@ class AnneeComponent extends Component
                 $year->delete();
             }
             $this->alert('success', 'Année supprimée avec succès!!');
+            $this->resetPage();
         } catch (\Exception $ex) {
             $this->alert('success', 'Something goes wrong!!');
         }
@@ -102,6 +105,7 @@ class AnneeComponent extends Component
             }
             $this->isFormOpen = true;
             $this->editModalOpen = true;
+            $this->resetPage();
 
         } catch (\Exception $ex) {
             $this->alert('warning', 'Something goes wrong!!');
@@ -127,6 +131,7 @@ class AnneeComponent extends Component
                 $anneeQuery->create($validatedData);
             }
             $this->closeModal();
+            $this->resetPage();
             $this->alert('success', 'Enregistrement éffectué avec succés');
         } catch (\Exception $ex) {
             $this->alert('warning', 'Something goes wrong!!');

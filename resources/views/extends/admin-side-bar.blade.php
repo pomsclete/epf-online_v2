@@ -13,7 +13,14 @@
     <!-- search form -->
     <div class="relative w-full hidden md:block">
       <!-- desktop search -->
-     @livewire('search-component')
+      <div class="inline-flex flex-row items-center gap-2 h-8 py-1 pl-1 pr-3 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 [&.active]:border-secondary-100 dark:[&.active]:border-secondary-700 hover:bg-surface-200 dark:hover:bg-surfacedark-200 focus:bg-surface-400 dark:focus:bg-surfacedark-400 border border-gray-500 dark:border-gray-200 rounded-r-lg  text-lg tracking-[.00714em]">
+        <div class="flex items-center justify-center w-6 h-6 overflow-hidden rounded-full bg-gray-700">
+          <span class="material-symbols-outlined !text-white">
+            bring_your_own_ip
+            </span>
+        </div>
+        <span>{{ $title ?? config('app.name') }}</span>
+      </div>
     </div>
 
     <!-- navbar right -->
