@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Livewire\Admin\DashboardComponent;
 use App\Livewire\Admin\AnneeComponent;
+use App\Livewire\Admin\NiveauComponent;
+use App\Livewire\Admin\DocumentComponent;
+use App\Livewire\Admin\FormationComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,21 @@ Auth::routes(['verify' => true]);
 
 /*------------------------------------------
 --------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+
+   
+    Route::get('/admin/home', DashboardComponent::class)->name('admin.home');
+    Route::get('/admin/annee', AnneeComponent::class)->name('admin.annee');
+    Route::get('/admin/niveau', NiveauComponent::class)->name('admin.niveau');
+    Route::get('/admin/document', DocumentComponent::class)->name('admin.document');
+    Route::get('/admin/formation', FormationComponent::class)->name('admin.formation');
+});
+
+/*------------------------------------------
+--------------------------------------------
 All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
@@ -38,19 +56,7 @@ Route::middleware(['auth', 'user-access:user','verified'])->group(function () {
 
 /*------------------------------------------
 --------------------------------------------
-All Admin Routes List
---------------------------------------------
---------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-
-    //Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-    Route::get('/admin/home', DashboardComponent::class)->name('admin.home');
-    Route::get('/admin/annee', AnneeComponent::class)->name('admin.annee');
-});
-
-/*------------------------------------------
---------------------------------------------
-All Admin Routes List
+All professeur Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:professeur'])->group(function () {

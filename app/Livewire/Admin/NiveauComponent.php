@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Annee;
+use App\Models\Niveau;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -11,16 +11,15 @@ use Livewire\WithoutUrlPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Url;
 
-
-
-class AnneeComponent extends Component
+class NiveauComponent extends Component
 {
     use WithPagination;
     use WithoutUrlPagination;
     use LivewireAlert;
 
+
     public $perPage = 10;
-    public $sortField = 'annee_scolaire';
+    public $sortField = 'designation';
     public $sortDirection = 'asc';
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -28,14 +27,13 @@ class AnneeComponent extends Component
     //Form Field
     public $rId = null;
     public $isFormOpen = false;
-    public $annee_scolaire;
+    public $designation;
     #[Url] 
     public $search = '';
     //Action
     public $dId = '';
     public $editModalOpen = false;
    
-
     public function openModal()
     {
         $this->isFormOpen = true;
@@ -55,7 +53,7 @@ class AnneeComponent extends Component
 
     public function resetData(){
         $this->rId = null;
-        $this->annee_scolaire= null;
+        $this->designation= null;
         $this->resetValidation();
     }
 
@@ -66,28 +64,16 @@ class AnneeComponent extends Component
         $this->resetData();
     }
 
-   /*public function deleteId($id){
-       $this->dId = $id;
-       $this->alert('warning', 'Confirmer pour supprimer', [
-        'showConfirmButton' => true,
-        'confirmButtonText' => 'Confirmer',
-        'showCancelButton' => true,
-        'cancelButtonText' => 'Annuler',
-        'onConfirmed' => 'confirmed',  
-        'allowOutsideClick' => false,
-        'timer' => null
-    ]);
-   }*/
 
    public function confirmed($id)
     {
         $this->dId = $id;
         try {
-            $year = Annee::find($this->dId);
+            $year = Niveau::find($this->dId);
             if ($year) {
                 $year->delete();
             }
-            $this->alert('success', 'Année supprimée avec succès!!');
+            $this->alert('success', 'Niveau supprimée avec succès!!');
             $this->resetPage();
         } catch (\Exception $ex) {
             $this->alert('success', 'Something goes wrong!!');
@@ -100,9 +86,9 @@ class AnneeComponent extends Component
         try {
             $this->rId = $id;
             if (!empty($this->rId)) {
-                $year = Annee::find($this->rId);
-                if ($year) {
-                    $this->annee_scolaire = $year->annee_scolaire;
+                $niv = Niveau::find($this->rId);
+                if ($niv) {
+                    $this->designation = $niv->designation;
                 }
             }
             $this->isFormOpen = true;
@@ -119,15 +105,15 @@ class AnneeComponent extends Component
     public function store()
     {
         $ruleFields = [
-            'annee_scolaire' => 'required',
+            'designation' => 'required',
         ];
         $validatedData = $this->validate($ruleFields);
         try {
-            $anneeQuery = Annee::query();
+            $anneeQuery = Niveau::query();
             if (!empty($this->rId)) {
-                $year = $anneeQuery->find($this->rId);
-                if ($year) {
-                    $year->update($validatedData);
+                $niv = $anneeQuery->find($this->rId);
+                if ($niv) {
+                    $niv->update($validatedData);
                 }
             } else {
                 $anneeQuery->create($validatedData);
@@ -146,14 +132,12 @@ class AnneeComponent extends Component
         $this->reset();
     }
 
-   
-
     #[Layout('components.layouts.app')]
-    #[Title('Année scolaire')]
+    #[Title("Niveaux d'étude")]
     public function render()
     {
-        return view('livewire.admin.annee-component', [
-            'records' => Annee::where('annee_scolaire','like','%'.$this->search.'%')
+        return view('livewire.admin.niveau-component',[
+            'records' => Niveau::where('designation','like','%'.$this->search.'%')
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage)
         ]);

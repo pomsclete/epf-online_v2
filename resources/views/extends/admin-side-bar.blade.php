@@ -161,7 +161,7 @@
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
             <span class="material-symbols-outlined">power_settings_new</span>
-              Se déconnecter
+              Déconnexion
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf

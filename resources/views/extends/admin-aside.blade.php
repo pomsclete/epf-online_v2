@@ -13,6 +13,9 @@
                   "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
                   "section_list" => [
                       ["href" => "admin.annee", "text" => "Années scolaires"],
+                      ["href" => "admin.niveau", "text" => "Niveaux d'étude"],
+                      ["href" => "admin.document", "text" => "Types de document"],
+                      ["href" => "admin.formation", "text" => "Nos formations"],
                   ]
               ]
           ],
@@ -30,7 +33,7 @@
     <!-- menu -->
     <div id="sidebar-content" class="sidebar-content transition-all duration-300 ease-in-out fixed z-40 max-lg:-translate-x-full max-lg:bg-surface-500 dark:max-lg:bg-surfacedark-500 left-0 top-0 bottom-0 h-screen w-72 overflow-auto scrollbars">
       <!-- logo -->
-      <a href="#" class="sidebar-logo pt-4 pb-2 pl-6 flex items-center justify-center w-full ">
+      <a href="#" class="sidebar-logo pt-4 pb-2 pl-6 flex items-center justify-center w-full  dark:bg-secondary-300">
          <img class="max-w-28" src="{{ asset('front/img/logoEpf.png') }}" alt="">
       </a>
 
@@ -38,14 +41,14 @@
       <div class="w-full inline-flex flex-col px-3 pb-3">
         <!-- title & menu -->
         <div class="pt-6 pb-2 px-4 compact-hide">
-          <p class="text-title-sm font-medium uppercase text-gray-600 dark:text-gray-400">Menu</p>
+          <p class="text-title-sm font-medium uppercase text-gray-600 dark:text-white">Menu</p>
         </div>
 
           @foreach ($navigation_links as $link)
-          <ul class="sidebar-menu flex flex-col">
+          <ul class="sidebar-menu flex flex-col" wire:ignore>
               @if (!$link->is_multi)
                 <li class="relative {{ Request::routeIs($link->href) ? 'active' : '' }}">
-                  <a href="{{ route($link->href) }}"  wire:navigate class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ Request::routeIs($link->href) ? 'active' : '' }}">
+                  <a href="{{ route($link->href) }}"  wire:navigate class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ Request::routeIs($link->href) ? 'active' : '' }}">
                     {!!  $link->icon !!}
                     <span class="compact-title">{{ $link->text }}</span>
                   </a>
@@ -62,14 +65,14 @@
                   @endphp
 
                   <li class="relative {{ ($is_active) ? 'active' : '' }}">
-                    <a href="javascript:void(0)" data-type="collapse" data-target="#dashboard{{ $i }}" class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ ($is_active) ? 'active' : '' }}">
+                    <a href="javascript:void(0)" data-type="collapse" data-target="#dashboard{{ $i }}" class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ ($is_active) ? 'active' : '' }}">
                       {!!  $section->icon !!}
                       <span class="compact-title">{{ $section->section_text }}</span>
                     </a>
                     <ul id="dashboard{{ $i }}" data-type="collapsed" class="sidebar-submenu [&.active]:block hidden {{ ($is_active) ? 'active' : '' }}">
                       @foreach ($section->section_list as $child)
                         <li>
-                          <a  href="{{ route($child->href) }}"  wire:navigate class="{{ Request::routeIs($child->href) ? 'active' : '' }} flex items-center py-3 pl-12 pr-6 mb-1 leading-none gap-2.5 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-primary-600/[0.08] dark:[&.active]:bg-primary-200/10 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
+                          <a  href="{{ route($child->href) }}"  wire:navigate class="{{ Request::routeIs($child->href) ? 'active' : '' }} flex items-center py-3 pl-12 pr-6 mb-1 leading-none gap-2.5 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-primary-600/[0.08] dark:[&.active]:bg-primary-200/10 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
                             {{ $child->text }}
                           </a>
                         </li>

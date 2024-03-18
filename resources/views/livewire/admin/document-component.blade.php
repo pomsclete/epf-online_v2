@@ -36,8 +36,8 @@
                     <div class="pb-4 flex justify-center">
                         <button class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
                             <span class="material-symbols-outlined">
-                                calendar_month
-                                </span> Années Scolaires
+                                description
+                                </span> Types de document
                           </button>
                     </div>
                     <div class="relative overflow-auto scrollbars">
@@ -46,9 +46,7 @@
                             <thead>
                             <tr>
 
-                                <th style="font-weight: bold" class="cursor-pointer" wire:click="sortBy('annee_scolaire')" >
-                                    Libelle
-                                </th>
+                                <th style="font-weight: bold" class="cursor-pointer" wire:click="sortBy('libelle')" >Libelle du document</th>
                                 <th style="font-weight: bold">Date de création</th>
                                 <th style="font-weight: bold">Dernieres modifcation</th>
                                 <th style="font-weight: bold">Actions</th>
@@ -57,7 +55,7 @@
                             <tbody>
                             @forelse($records as $record)
                                  <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
-                                     <td>{{$record->annee_scolaire }}</td>
+                                     <td>{{$record->libelle }}</td>
                                      <td>{{  \Carbon\Carbon::parse($record->created_at)->format('d-m-Y H:m:s') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($record->updated_at)->format('d-m-Y H:m:s') }}</td>
                                     <td>
@@ -69,7 +67,7 @@
                                         </button>
                                         <button wire:click="confirmed('{{ $record->id }}')" 
                                             type="button"
-                                            wire:confirm.prompt="Voulez-vous vraiment supprimer?\n\nTaper SUPPRIMER pour confirmer|SUPPRIMER"
+                                            wire:confirm.prompt="Voulez-vous vraiment supprimer ce niveau?\n\nTaper SUPPRIMER pour confirmer|SUPPRIMER"
                                                 class="ms-3 font-medium text-red-600 dark:text-red-500 hover:underline">
                                             <span class="material-symbols-outlined">
                                                 delete
@@ -119,15 +117,15 @@
                 <!-- Form -->
                 <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
                     <div class="relative z-0">
-                        <input type="text" aria-label="deal1" wire:model="annee_scolaire" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
+                        <input type="text" aria-label="deal1" wire:model="libelle" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer"   required>
 
-                        <label for="deal1" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Année scolaire</label>
+                        <label for="deal1" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Libelle du document</label>
                     </div>
-                    <div class="text-red-800 text-xs">@error('annee_scolaire') {{ $message }} @enderror</div>
+                    <div class="text-red-800 text-xs">@error('libelle') {{ $message }} @enderror</div>
                     <div class="relative">
                         <button wire:click.prevent="store()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
                             <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">
-                                 {{ ($editModalOpen) ? "Mettre à jour" : " Ajouter une année" }}
+                                 {{ ($editModalOpen) ? "Mettre à jour" : " Ajouter un document" }}
                             </span>
                         </button>
                     </div>

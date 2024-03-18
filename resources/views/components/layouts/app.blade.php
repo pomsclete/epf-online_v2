@@ -23,6 +23,9 @@
 <body id="body-layout" class="text-body-lg relative font-sans font-medium text-gray-700 dark:text-gray-300 bg-surface-500 dark:bg-surfacedark-500  red-theme">
     {{ $slot }}
  @stack('scripts')
+ <p class="alert alert-warning" wire:offline>
+    Oups, votre appareil a perdu la connexion. La page Web que vous consultez est hors ligne.
+</p>
 
 <script src="{{ asset('admin/src/js/tailmater.js') }}"></script>
 @livewireScripts

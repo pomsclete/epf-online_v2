@@ -91,6 +91,5 @@
     </div>
   </div>
 
-  <button data-type="dialogs" data-target="#sheets_b" class="material-symbols-outlined !hidden md:!inline-flex !items-center !absolute right-12 bottom-12 justify-center w-12 h-12 gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] text-center font-medium bg-surface-300 dark:bg-surfacedark-300 hover:bg-surface-500 focus:bg-surface-500 dark:text-gray-100 dark:hover:bg-surfacedark-500 dark:focus:bg-surfacedark-500">settings</button>
-
+ 
 @endsection
