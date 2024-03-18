@@ -9,6 +9,19 @@
        [
           "href" => [
               [
+                  "section_text" => "Gestion des classes",
+                  "icon" => "<span class='material-symbols-outlined'>prescriptions</span>",
+                  "section_list" => [
+                      ["href" => "admin.classe", "text" => "Liste des classes"],
+                  ]
+              ]
+          ],
+          "text" => "News",
+          "is_multi" => true,
+      ]
+      , [
+          "href" => [
+              [
                   "section_text" => "Configurations",
                   "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
                   "section_list" => [

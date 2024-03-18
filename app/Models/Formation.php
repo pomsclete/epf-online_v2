@@ -9,9 +9,5 @@ class Formation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'intitule',
-        'description',
-        'etat_formation'
-    ];
+   protected $guarded = [];
 }

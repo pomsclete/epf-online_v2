@@ -23,10 +23,10 @@
                 <!-- action -->
                 <div class="flex flex-row gap-3 items-center">
                     <!-- add new -->
-                    <button data-type="dialogs" wire:click="openModal()" class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                    <a href="{{ route('admin.addformation') }}" wire:navigate class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
                         <span class="material-symbols-outlined">add</span>
                         Ajouter
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -57,12 +57,12 @@
                                      <td>{{$record->intitule }}</td>
                                     <td>{{ \Carbon\Carbon::parse($record->updated_at)->format('d-m-Y H:m:s') }}</td>
                                     <td>
-                                        <button wire:click="edit('{{ $record->id }}')"
+                                        <a  href="{{ route('admin.addformation',['id' => $record->id]) }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             <span class="material-symbols-outlined">
                                                 border_color
                                                 </span>
-                                        </button>
+                                        </a>
                                         <button wire:click="confirmed('{{ $record->id }}')" 
                                             type="button"
                                             wire:confirm.prompt="Voulez-vous vraiment supprimer ce niveau?\n\nTaper SUPPRIMER pour confirmer|SUPPRIMER"

@@ -7,6 +7,8 @@ use App\Livewire\Admin\AnneeComponent;
 use App\Livewire\Admin\NiveauComponent;
 use App\Livewire\Admin\DocumentComponent;
 use App\Livewire\Admin\FormationComponent;
+use App\Livewire\Admin\AddFormationComponent;
+use App\Livewire\Admin\ClasseComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +43,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/annee', AnneeComponent::class)->name('admin.annee');
     Route::get('/admin/niveau', NiveauComponent::class)->name('admin.niveau');
     Route::get('/admin/document', DocumentComponent::class)->name('admin.document');
-    Route::get('/admin/formation', FormationComponent::class)->name('admin.formation');
+    Route::get('/admin/formations', FormationComponent::class)->name('admin.formation');
+    Route::get('/admin/formation/{id?}', AddFormationComponent::class)->name('admin.addformation');
+    Route::get('/admin/classe', ClasseComponent::class)->name('admin.classe');
 });
 
 /*------------------------------------------

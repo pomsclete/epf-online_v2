@@ -2,16 +2,16 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Models\Formation;
-use Livewire\Attributes\Url;
-use Livewire\WithPagination;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
-use Livewire\WithoutUrlPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
-class FormationComponent extends Component
+class ClasseComponent extends Component
 {
     use WithPagination;
     use WithoutUrlPagination;
@@ -20,16 +20,13 @@ class FormationComponent extends Component
     public $perPage = 10;
     public $sortField = 'intitule';
     public $sortDirection = 'asc';
+    public $isFormOpen = false;
 
     protected $queryString = ['sortField', 'sortDirection'];
 
     //Form Field
-    public $rId = null;
-    public $intitule;
-    #[Url] 
+    #[Url]
     public $search = '';
-    //Action
-    public $dId = '';
 
     public function sortBy($field)
     {
@@ -39,26 +36,22 @@ class FormationComponent extends Component
         $this->sortField = $field;
     }
 
-    public function confirmed($id)
+    public function openModal($id)
     {
-        $this->dId = $id;
-        try {
-            $year = Formation::find($this->dId);
-            if ($year) {
-                $year->delete();
-            }
-            $this->alert('success', 'Année supprimée avec succès!!');
-            $this->resetPage();
-        } catch (\Exception $ex) {
-            $this->alert('success', 'Something goes wrong!!');
-        }
+        $this->isFormOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isFormOpen = false;
+        $this->id = null;
     }
 
     #[Layout('components.layouts.app')]
-    #[Title('Nos formations')]
+    #[Title('Nos classes')]
     public function render()
     {
-        return view('livewire.admin.formation-component',[
+        return view('livewire.admin.classe-component',[
             'records' => Formation::where('intitule','like','%'.$this->search.'%')
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage)

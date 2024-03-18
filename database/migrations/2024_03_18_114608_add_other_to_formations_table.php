@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formations', function (Blueprint $table) {
-            $table->id();
-            $table->string('intitule');
-            $table->text('description');
-            $table->boolean('etat_formation')->default(0);
-            $table->timestamps();
+        Schema::table('formations', function (Blueprint $table) {
+            $table->text('condition');
+            $table->string('duree');
+            $table->text('raison');
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formations');
+        Schema::table('formations', function (Blueprint $table) {
+            //
+        });
     }
 };
