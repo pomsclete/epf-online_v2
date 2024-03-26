@@ -23,7 +23,7 @@
                 <!-- action -->
                 <div class="flex flex-row gap-3 items-center">
                     <!-- add new -->
-                    <a href="{{ route('admin.addformation') }}" wire:navigate class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                    <a href="{{ route('admin.addformation') }}" class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
                         <span class="material-symbols-outlined">add</span>
                         Ajouter
                     </a>

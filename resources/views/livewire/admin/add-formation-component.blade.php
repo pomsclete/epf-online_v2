@@ -21,11 +21,11 @@
                                 <img src="{{ asset('admin/src/img/avatar.png') }}" alt="avatar" class="rounded-full w-24 h-24 bg-primary-600 text-white dark:bg-primary-200 dark:text-neutral-900 border-solid border-white border-2 -mt-3">
                             </div>
                             <div class="text-center px-4 pb-6 pt-2">
-                                <button class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
+                                <a href="{{ route('admin.formation') }}" wire:navigate class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
                                     <span class="material-symbols-outlined">
                                          post_add
-                                    </span> Ajouter une formation
-                                </button>
+                                    </span> Liste des formations
+                                </a>
                             </div>
                         </div>
                         <!-- information -->

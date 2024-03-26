@@ -23,10 +23,10 @@
                 <!-- action -->
                 <div class="flex flex-row gap-3 items-center">
                     <!-- add new -->
-                    <a href="{{ route('admin.addformation') }}" wire:navigate class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                    <button data-type="dialogs" wire:click="openModal()" class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
                         <span class="material-symbols-outlined">add</span>
                         Ajouter
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                         <button class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
                             <span class="material-symbols-outlined">
                                 school
-                                </span> Nos classes par formations
+                                </span> Gestion des classes
                         </button>
                     </div>
                     <div class="relative overflow-auto scrollbars">
@@ -46,25 +46,28 @@
                             <thead>
                             <tr>
 
-                                <th style="font-weight: bold" class="cursor-pointer" wire:click="sortBy('intitule')" >Intitulé de la formation</th>
-                                <th style="font-weight: bold">Nos classes</th>
+                                <th style="font-weight: bold" class="cursor-pointer" wire:click="sortBy('intitule')" >Nos classes</th>
+                                <th style="font-weight: bold">Date de création</th>
                                 <th style="font-weight: bold">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse($records as $record)
                                 <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
-                                    <td>{{$record->intitule }}</td>
+                                    <td> <b>{{ $record->designation }}</b> {{ $record->intitule }}</td>
+                                    <td>{{  \Carbon\Carbon::parse($record->created_at)->format('d-m-Y H:m:s') }}</td>
                                     <td>
-
-
-                                    </td>
-                                    <td>
+                                        <button wire:click="edit('{{ $record->id }}')"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <span class="material-symbols-outlined">
+                                                border_color
+                                                </span>
+                                        </button>
                                         <button wire:click="openModal('{{ $record->id }}')"
                                                 type="button"
                                                 class="ms-3 font-medium text-green-600 dark:text-green-500 hover:underline">
-                                                <span aria-label="Ajouter une classe" data-microtip-position="top" role="tooltip" class="material-symbols-outlined">
-                                                    tab_new_right
+                                                <span class="material-symbols-outlined" aria-label="Ajouter des documents" data-microtip-position="top" role="tooltip">
+                                                     create_new_folder
                                                 </span>
                                         </button>
                                     </td>
@@ -100,7 +103,7 @@
             <div class="flex flex-col gap-4 justify-start py-6">
                 <div class="flex justify-between items-center px-6">
                     <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">
-                        Ajouter une année scolaire
+                        Ajouter une une classe
 
                     </h3>
 
@@ -110,23 +113,32 @@
 
                 <!-- Form -->
                 <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
-                    <div class="w-full sm:w-[360px] flex flex-col py-2 rounded-xl overflow-hidden bg-surface-100 dark:bg-surfacedark-100">
-                        <div class="min-h-[3.5rem] flex flex-row items-center gap-4 py-2 px-6">
-                            <p class="flex flex-grow">List Item</p>
-                            <input type="checkbox" name="checked-demo" class="w-[18px] h-[18px] accent-primary-600 hover:accent-primary-600 dark:accent-primary-200 rounded-[2px] ltr:mr-3 rtl:ml-3" checked="">
-                        </div>
-                        <div class="min-h-[3.5rem] flex flex-row items-center gap-4 py-2 px-6">
-                            <p class="flex flex-grow">List Item</p>
-                            <input type="checkbox" name="checked-demo" class="w-[18px] h-[18px] accent-primary-600 hover:accent-primary-600 dark:accent-primary-200 rounded-[2px] ltr:mr-3 rtl:ml-3" checked="">
-                        </div>
-                        <div class="min-h-[3.5rem] flex flex-row items-center gap-4 py-2 px-6">
-                            <p class="flex flex-grow">List Item</p>
-                            <input type="checkbox" name="checked-demo" class="w-[18px] h-[18px] accent-primary-600 hover:accent-primary-600 dark:accent-primary-200 rounded-[2px] ltr:mr-3 rtl:ml-3" checked="">
-                        </div>
-                        <div class="min-h-[3.5rem] flex flex-row items-center gap-4 py-2 px-6">
-                            <p class="flex flex-grow">List Item</p>
-                            <input type="checkbox" name="checked-demo" class="w-[18px] h-[18px] accent-primary-600 hover:accent-primary-600 dark:accent-primary-200 rounded-[2px] ltr:mr-3 rtl:ml-3" checked="">
-                        </div>
+                    <!-- select outline -->
+                    <div class="relative z-0">
+                        <select id="examplexs2" wire:model="formation" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
+                            <option>-- Selectionnez --</option>
+                            @foreach($formations as $form)
+                                <option value="{{ $form->id }}">{{ $form->intitule }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="text-red-800 text-xs">@error('formation') {{ $message }} @enderror</div>
+                    <!-- select outline -->
+                    <div class="relative z-0">
+                        <select id="examplexs3" wire:model="niveau" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
+                            <option>-- Selectionnez --</option>
+                            @foreach($niveaux as $niv)
+                                <option value="{{ $niv->id }}">{{ $niv->designation }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="text-red-800 text-xs">@error('niveau') {{ $message }} @enderror</div>
+                    <div class="relative">
+                        <button wire:click.prevent="store()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                            <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">
+                                 {{ ($editModalOpen) ? "Mettre à jour" : " Ajouter une classe" }}
+                            </span>
+                        </button>
                     </div>
                 </form>
             </div>
