@@ -6,20 +6,13 @@
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
       ],
-       [
-          "href" => [
-              [
-                  "section_text" => "Gestion des classes",
-                  "icon" => "<span class='material-symbols-outlined'>prescriptions</span>",
-                  "section_list" => [
-                      ["href" => "admin.classe", "text" => "Liste des classes"],
-                  ]
-              ]
-          ],
-          "text" => "News",
-          "is_multi" => true,
-      ]
-      , [
+      [
+          "href" => "admin.classe",
+          "text" => "Gestion des classes",
+          "icon" => "<span class='material-symbols-outlined'>prescriptions</span>",
+          "is_multi" => false,
+      ],
+      [
           "href" => [
               [
                   "section_text" => "Configurations",

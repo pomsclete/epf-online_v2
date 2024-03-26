@@ -10,6 +10,7 @@
             <img src="{{ asset('front/img/logoEpf.png') }}" alt="Logo de EPF">
           </div>
         </div>
+        
             @if (session('error'))
             <div class="relative text-red-500 text-center rounded-full">
                 {{ session('error') }}
@@ -91,5 +92,5 @@
     </div>
   </div>
 
- 
+
 @endsection
