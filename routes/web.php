@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Livewire\Admin\DashboardComponent;
+use App\Livewire\User\DashboardComponent as UserDash;
 use App\Livewire\Admin\AnneeComponent;
 use App\Livewire\Admin\NiveauComponent;
 use App\Livewire\Admin\DocumentComponent;
 use App\Livewire\Admin\FormationComponent;
 use App\Livewire\Admin\AddFormationComponent;
 use App\Livewire\Admin\ClasseComponent;
+use App\Livewire\Admin\ClasseDetailComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/document', DocumentComponent::class)->name('admin.document');
     Route::get('/admin/formations', FormationComponent::class)->name('admin.formation');
     Route::get('/admin/formation/{id?}', AddFormationComponent::class)->name('admin.addformation');
-    Route::get('/admin/classe', ClasseComponent::class)->name('admin.classe');
+    Route::get('/admin/classes', ClasseComponent::class)->name('admin.classe');
+    Route::get('/admin/classe/{classe}', ClasseDetailComponent::class)->name('admin.classes');
 });
 
 /*------------------------------------------
@@ -55,7 +58,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user','verified'])->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', UserDash::class)->name('home');
 });
 
 /*------------------------------------------

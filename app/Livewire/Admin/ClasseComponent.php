@@ -23,6 +23,7 @@ class ClasseComponent extends Component
     public $sortField = 'intitule';
     public $sortDirection = 'asc';
     public $isFormOpen = false;
+    public $modalDoc = false;
 
     protected $queryString = ['sortField', 'sortDirection'];
 
@@ -35,7 +36,8 @@ class ClasseComponent extends Component
     #[Url]
     public $search = '';
     //Action
-    public $dId = '';
+    public $classe = '';
+    public $niv,$designation,$intitule;
     public $editModalOpen = false;
 
     public function sortBy($field)
@@ -51,6 +53,18 @@ class ClasseComponent extends Component
         $this->formations = Formation::orderBy('intitule','asc')->get();
         $this->niveaux = Niveau::orderBy('id','asc')->get();
         $this->isFormOpen = true;
+    }
+
+    public function openModalAdd($id)
+    {
+        $this->modalDoc = true;
+        $this->classe = $id;
+        $this->niv =  NiveauFormation::select('intitule','designation','niveau_formations.id','niveau_formations.created_at')
+            ->join('formations', 'formations.id','=','niveau_formations.formation_id')
+            ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
+            ->where('niveau_formations.id',$id)->first();
+        $this->intitule = $this->niv->intitule;
+        $this->designation = $this->niv->designation;
     }
 
     public function closeModal()

@@ -1,7 +1,7 @@
 @php
   $links = [
       [
-          "href" => "login",
+          "href" => "home",
           "text" => "Tableau de bord",
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
@@ -30,11 +30,8 @@
     <!-- menu -->
     <div id="sidebar-content" class="sidebar-content transition-all duration-300 ease-in-out fixed z-40 max-lg:-translate-x-full max-lg:bg-surface-500 dark:max-lg:bg-surfacedark-500 left-0 top-0 bottom-0 h-screen w-72 overflow-auto scrollbars">
       <!-- logo -->
-      <a href="#" class="sidebar-logo pt-4 pb-2 pl-6 flex items-center w-full">
-        <div class="w-9 h-9 rounded-full border-2 border-primary-600 flex items-center justify-center text-primary-800 font-bold text-lg">
-          <span class="flex items-center justify-center w-6 h-6 rounded-full bg-red-400">EPF</span>
-        </div>
-        <h4 class="text-2xl font-medium tracking-wide text-gray-900 dark:text-gray-100 compact-hide ml-2">Online</h4>
+      <a href="#" class="sidebar-logo pt-4 pb-2 pl-6 flex items-center justify-center w-full  dark:bg-secondary-300">
+        <img class="max-w-28" src="{{ asset('front/img/logoEpf.png') }}" alt="">
       </a>
 
       <!-- Standart drawer -->
@@ -48,7 +45,7 @@
           <ul class="sidebar-menu flex flex-col">
               @if (!$link->is_multi)
                 <li class="relative {{ Request::routeIs($link->href) ? 'active' : '' }}">
-                  <a href="{{ route($link->href) }}" class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
+                  <a href="{{ route($link->href) }}" class="{{ Request::routeIs($link->href) ? 'active' : '' }} flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
                     {!!  $link->icon !!}
                     <span class="compact-title">{{ $link->text }}</span>
                   </a>
@@ -119,12 +116,6 @@
             </div>
           </div>
 
-          <!-- action -->
-          <div class="px-4 flex justify-center mb-12">
-            <a href="../index.html" target="_blank" class="btn relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-label-lg bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
-              <span class="material-symbols-outlined">shopping_cart</span><span class="ml-1 compact-hide">Suivre la demande</span>
-            </a>
-          </div>
         </div>
       </div>
     </div>

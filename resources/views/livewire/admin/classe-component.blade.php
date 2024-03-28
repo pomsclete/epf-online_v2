@@ -59,17 +59,24 @@
                                     <td>
                                         <button wire:click="edit('{{ $record->id }}')"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            <span class="material-symbols-outlined">
+                                            <span class="material-symbols-outlined" aria-label="Modifier la classe" data-microtip-position="top" role="tooltip">
                                                 border_color
                                                 </span>
                                         </button>
-                                        <button wire:click="openModal('{{ $record->id }}')"
+                                        <button wire:click="openModalAdd('{{ $record->id }}')"
                                                 type="button"
                                                 class="ms-3 font-medium text-green-600 dark:text-green-500 hover:underline">
                                                 <span class="material-symbols-outlined" aria-label="Ajouter des documents" data-microtip-position="top" role="tooltip">
                                                      create_new_folder
                                                 </span>
                                         </button>
+                                        <a href="{{ route('admin.classes',['classe' => $record->id]) }}" wire:navigate
+                                           type="button"
+                                           class="ms-3 font-medium text-yellow-600 dark:text-red-500 hover:underline">
+                                            <span class="material-symbols-outlined " aria-label="Suivre la classe" data-microtip-position="top" role="tooltip">
+                                                visibility
+                                            </span>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -141,6 +148,29 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- fullscreen dialogs -->
+    <div id="dialog_xb" class="[&.show]:opacity-100 [&.show]:h-full [&.show]:inset-0 [&.show_.dialog]:flex [&.show_.dialog]:inset-0 opacity-0 w-full h-0 z-50 overflow-auto fixed left-0 top-0 flex items-center justify-center {{ ($modalDoc==true) ? 'show' : '' }}" >
+        <div class="backDialog opacity-0"></div>
+        <!-- dialogs -->
+        <div class="dialog hidden z-50 flex-col gap-2 fixed bg-neutral-10 dark:bg-neutral-900">
+            <!-- header -->
+            <div class="min-h-[56px] flex flex-row items-center gap-4 px-4 pt-6">
+                <h3 class="text-title-lg flex flex-grow"><b>documents à fournir pour la classe : <span class="text-green-500">{{ $designation }} {{ $intitule }}</span></b> </h3>
+
+                <button data-close="#dialog_xb" class="relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium text-primary-600 hover:bg-surface-200 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400">
+                    <span class="material-symbols-outlined">close</span>
+                    Fermer
+                </button>
+            </div>
+            <!-- body -->
+            <div class="relative text-body-lg px-8 md:px-20 py-4 overflow-y-scroll scrollbars">
+                <livewire:admin.add-doc-classe-component :classe="$classe"/>
             </div>
         </div>
     </div>

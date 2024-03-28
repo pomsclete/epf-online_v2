@@ -6,6 +6,22 @@
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
       ],
+       [
+          "href" => [
+              [
+                  "section_text" => "Admissions",
+                  "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
+                  "section_list" => [
+                      ["href" => "admin.annee", "text" => "Nouvelles demandes"],
+                      ["href" => "admin.niveau", "text" => "Traitements.."],
+                      ["href" => "admin.document", "text" => "Délibérations.."],
+                      ["href" => "admin.formation", "text" => "Dossiers finalisés"],
+                  ]
+              ]
+          ],
+          "text" => "News",
+          "is_multi" => true,
+      ],
       [
           "href" => "admin.classe",
           "text" => "Gestion des classes",
@@ -71,19 +87,20 @@
                   @endphp
 
                   <li class="relative {{ ($is_active) ? 'active' : '' }}">
-                    <a href="javascript:void(0)" data-type="collapse" data-target="#dashboard{{ $i }}" class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ ($is_active) ? 'active' : '' }}">
+                    <a href="javascript:void(0)" data-type="collapse" data-target="#dashboard{{ $section->section_text }}" class="flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] {{ ($is_active) ? 'active' : '' }}">
                       {!!  $section->icon !!}
                       <span class="compact-title">{{ $section->section_text }}</span>
                     </a>
-                    <ul id="dashboard{{ $i }}" data-type="collapsed" class="sidebar-submenu [&.active]:block hidden {{ ($is_active) ? 'active' : '' }}">
+                    <ul id="dashboard{{ $section->section_text }}" data-type="collapsed" class="sidebar-submenu [&.active]:block hidden {{ ($is_active) ? 'active' : '' }}">
                       @foreach ($section->section_list as $child)
                         <li>
                           <a  href="{{ route($child->href) }}"  wire:navigate class="{{ Request::routeIs($child->href) ? 'active' : '' }} flex items-center py-3 pl-12 pr-6 mb-1 leading-none gap-2.5 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-white [&.active]:bg-primary-600/[0.08] dark:[&.active]:bg-primary-200/10 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
                             {{ $child->text }}
                           </a>
                         </li>
-                        @php $i++ @endphp
+
                       @endforeach
+                        @php $i++ @endphp
                     </ul>
                   </li>
                 @endforeach
