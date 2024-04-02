@@ -4,9 +4,13 @@ namespace App\Livewire\User;
 
 use App\Models\Annee;
 use App\Models\Demande;
+use App\Models\DocAFournirDemande;
+use App\Models\DocumentClasse;
 use App\Models\NiveauFormation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -16,6 +20,7 @@ class ListClasseComponent extends Component
     public $search = '';
     public $intitule,$designation,$description,$condition,$duree,$raison;
     public $modalDoc = false;
+    use LivewireAlert;
 
     public function openModalAdd($id)
     {
@@ -32,28 +37,82 @@ class ListClasseComponent extends Component
         $this->raison = $niv->raison;
     }
 
+
+
     public function confirmed($id)
     {
+        DB::beginTransaction();
         $an = Annee::orderBy('id','DESC')->get()->first();
+        $dem = Demande::orderBy('id','DESC')->get()->first();
+        ($dem) ? $idDem = $dem->id+1 : $idDem = 1;
+
          try {
              $idD = Demande::insertGetId([
                         'niveau_formation_id' => $id,
+                        'numero' => 'EPF/'.$an->annee_scolaire.'/CA-'.Auth::user()->id.'/DE-'.$idDem,
                         'annee_id' => $an->id,
                         'user_id' => Auth::user()->id,
                         'created_at' => Carbon::now()
                     ]);
              if($idD){
-                 
+                 $data = DocumentClasse::select('document_id','obligation')->where('niveau_formation_id',$id)->where('etat',0)->get();
+                 foreach ($data as $da){
+                     DocAFournirDemande::create([
+                         'demande_id' => $idD,
+                         'document_id' => $da->document_id,
+                         'obligation' => $da->obligation
+                     ]);
+                 }
              }
+             DB::commit();
             $this->alert('success', 'Enregistrement éffectué avec succés');
-            $this->redirect('/home');
+            $this->redirect('/dossier/'.crypt($idD,"poms"));
         } catch (\Exception $ex) {
-            $this->alert('success', 'Something goes wrong!!');
+            $this->alert('warning', 'Something goes wrong!!');
+             DB::rollback();
         }
     }
 
     public function verif($id){
+        $res = Demande::select('id')->where('niveau_formation_id',$id)
+                        ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+       if($res) {
+           return $res->id;
+       } else { return 0;}
+    }
 
+    public function avancement($id){
+        $res = Demande::select('avance')->where('niveau_formation_id',$id)
+            ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+       if($res){
+           if($res->avance == 0) {
+               return 25;
+           } elseif($res->avance == 1){
+               return 50;
+           } elseif($res->avance == 2) {
+               return 75;
+           } else {
+               return 100;
+           }
+       }
+        else { return 0;}
+    }
+
+    public function avancementTxt($id){
+        $res = Demande::select('avance')->where('niveau_formation_id',$id)
+            ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+        if($res){
+            if($res->avance == 0) {
+                return 'Initialisation';
+            } elseif($res->avance == 1){
+                return 'Documents déposés';
+            } elseif($res->avance == 2) {
+                return "Documents validés";
+            } else {
+                return "Dossier accepté et lettre d'admission disponible";
+            }
+        }
+        else { return "En attente candidature";}
     }
 
     public function render()

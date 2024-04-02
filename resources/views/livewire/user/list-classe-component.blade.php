@@ -18,7 +18,7 @@
         @foreach($records as $rec)
         <div>
             <!-- card -->
-            <div class="p-6 flex flex-col rounded-xl [&amp;.active]:bg-primary-100 dark:[&amp;.active]:bg-primary-700 [&amp;.active_.progress-bg]:bg-green-500 [&amp;.active_.progress-frame]:bg-green-100 dark:[&amp;.active_.progress-frame]:bg-green-900 bg-white dark:bg-gray-900 dark:shadow-gray-50/10">
+            <div class="{{ ($this->verif($rec->id) != 0) ? 'active' : '' }} p-6 flex flex-col rounded-xl [&amp;.active]:bg-primary-100 dark:[&amp;.active]:bg-primary-700 [&amp;.active_.progress-bg]:bg-green-500 [&amp;.active_.progress-frame]:bg-green-100 dark:[&amp;.active_.progress-frame]:bg-green-900 bg-white dark:bg-gray-900 dark:shadow-gray-50/10">
                 <div class="flex flex-row gap-2 items-center justify-between mb-2">
                     <h3 class="text-title-md text-gray-800 dark:text-gray-200">{{ $rec->designation }}</h3>
                     <!-- action -->
@@ -37,26 +37,39 @@
                         </div>
                     </div>
 
+
+
                     <!-- category -->
                     <div class="flex flex-row justify-between items-center mb-2">
-                        <span class="text-title-sm">Marketing</span>
-                        <span class="text-title-sm">54%</span>
+                        <span class="text-title-sm">{{ $this->avancementTxt($rec->id) }}</span>
+                        <span class="text-title-sm">{{ $this->avancement($rec->id) }}%</span>
                     </div>
                     <!-- progress -->
                     <div class="progress-frame flex bg-surface-500 dark:bg-surfacedark-500 h-2 rounded overflow-hidden">
-                        <div class="progress-bg flex bg-primary-500" style="width: 54%;"></div>
+                        <div class="progress-bg flex bg-primary-500" style="width: {{ $this->avancement($rec->id) }}%;"></div>
                     </div>
 
                     <div class="flex flex-row items-center justify-between pt-6">
-                        <!-- asignment -->
+                        <!-- asignment   -->
                         <div class="relative">
+                            @if($this->verif($rec->id) == 0)
                             <button wire:click="confirmed('{{ $rec->id }}')"
-                                    wire:confirm.prompt="Voulez-vous vraiment supprimer?\n\nTaper CONFIRMER pour confirmer|CONFIRMER" class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-white bg-primary-500 dark:bg-primary-700 dark:text-primary-100">
+                                    wire:confirm.prompt="Voulez-vous vraiment supprimer?\n\nTaper CONFIRMER pour confirmer|CONFIRMER"
+                                    class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-white bg-primary-500 dark:bg-primary-700 dark:text-primary-100">
                                <span class="material-symbols-outlined">
                                 note_add
                                 </span>
                                 <span class="hidden md:inline-block">Faire une demande</span>
                             </button>
+                            @else
+                                <a href="{{ route('dossier',['numero' => crypt($this->verif($rec->id),"poms")]) }}"
+                                        class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-black bg-green-200 dark:bg-primary-700 dark:text-primary-100">
+                               <span class="material-symbols-outlined">
+                                eye_tracking
+                                </span>
+                                    <span class="hidden md:inline-block">Suivre mon dossier</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

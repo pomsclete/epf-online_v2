@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('document_id')->constrained()->cascadeOnDelete();
             $table->foreignId('demande_id')->constrained()->cascadeOnDelete();
+            $table->string('obligation');
             $table->string('fichier')->nullable();
             $table->integer('etat')->default(0);
             $table->string('comment')->nullable();

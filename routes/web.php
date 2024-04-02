@@ -11,7 +11,7 @@ use App\Livewire\Admin\FormationComponent;
 use App\Livewire\Admin\AddFormationComponent;
 use App\Livewire\Admin\ClasseComponent;
 use App\Livewire\Admin\ClasseDetailComponent;
-
+use \App\Livewire\User\DossierComponent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +59,7 @@ All Normal Users Routes List
 Route::middleware(['auth', 'user-access:user','verified'])->group(function () {
 
     Route::get('/home', UserDash::class)->name('home');
+    Route::get('/dossier/{numero}', DossierComponent::class)->name('dossier');
 });
 
 /*------------------------------------------
