@@ -41,15 +41,17 @@ class ListClasseComponent extends Component
 
     public function confirmed($id)
     {
+        sleep(2);
         DB::beginTransaction();
         $an = Annee::orderBy('id','DESC')->get()->first();
         $dem = Demande::orderBy('id','DESC')->get()->first();
         ($dem) ? $idDem = $dem->id+1 : $idDem = 1;
 
          try {
+             $num = 'epf-'.$an->annee_scolaire.'-ca-'.Auth::user()->id.'-de-'.$idDem;
              $idD = Demande::insertGetId([
                         'niveau_formation_id' => $id,
-                        'numero' => 'EPF/'.$an->annee_scolaire.'/CA-'.Auth::user()->id.'/DE-'.$idDem,
+                        'numero' => $num,
                         'annee_id' => $an->id,
                         'user_id' => Auth::user()->id,
                         'created_at' => Carbon::now()
@@ -66,7 +68,7 @@ class ListClasseComponent extends Component
              }
              DB::commit();
             $this->alert('success', 'Enregistrement éffectué avec succés');
-            $this->redirect('/dossier/'.crypt($idD,"poms"));
+            $this->redirect('/dossier/'.$num);
         } catch (\Exception $ex) {
             $this->alert('warning', 'Something goes wrong!!');
              DB::rollback();
@@ -74,10 +76,10 @@ class ListClasseComponent extends Component
     }
 
     public function verif($id){
-        $res = Demande::select('id')->where('niveau_formation_id',$id)
+        $res = Demande::select('numero')->where('niveau_formation_id',$id)
                         ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
        if($res) {
-           return $res->id;
+           return $res->numero;
        } else { return 0;}
     }
 
@@ -91,7 +93,10 @@ class ListClasseComponent extends Component
                return 50;
            } elseif($res->avance == 2) {
                return 75;
-           } else {
+           } elseif($res->avance == 3) {
+               return 95;
+           }
+           else {
                return 100;
            }
        }
@@ -103,12 +108,15 @@ class ListClasseComponent extends Component
             ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
         if($res){
             if($res->avance == 0) {
-                return 'Initialisation';
+                return 'Création du dossier';
             } elseif($res->avance == 1){
                 return 'Documents déposés';
             } elseif($res->avance == 2) {
                 return "Documents validés";
-            } else {
+            }  elseif($res->avance == 3) {
+                    return "En attente délibération";
+            }
+            else {
                 return "Dossier accepté et lettre d'admission disponible";
             }
         }
