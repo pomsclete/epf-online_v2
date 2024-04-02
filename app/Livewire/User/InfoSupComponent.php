@@ -5,6 +5,8 @@ namespace App\Livewire\User;
 use App\Models\InfoUsuer;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class InfoSupComponent extends Component
@@ -41,6 +43,7 @@ class InfoSupComponent extends Component
            $this->alert('warning', 'Something goes wrong!!');
         }
     }
+
 
 
     public function render()

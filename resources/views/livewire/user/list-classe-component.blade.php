@@ -23,7 +23,7 @@
                     <h3 class="text-title-md text-gray-800 dark:text-gray-200">{{ $rec->designation }}</h3>
                     <!-- action -->
                     <div class="relative">
-                        <button data-type="dropdown" data-target="#dropdown-12" class="relative !inline-flex !items-center justify-center w-150 h-10 gap-x-2 p-2.5 rounded-[6.25rem] !text-[14px] tracking-[.00714em] text-center  bg-surface-100 dark:bg-surfacedark-100 hover:bg-surface-300 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-300 dark:focus:bg-surfacedark-400">
+                        <button wire:click="openModalAdd({{ $rec->id }})" class="relative !inline-flex !items-center justify-center w-150 h-10 gap-x-2 p-2.5 rounded-[6.25rem] !text-[14px] tracking-[.00714em] text-center  bg-surface-100 dark:bg-surfacedark-100 hover:bg-surface-300 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-300 dark:focus:bg-surfacedark-400">
                             Plus de détails</button>
                       </div>
                 </div>
@@ -64,11 +64,54 @@
         </div>
         @endforeach
     </div>
-    <!-- load more -->
+    <!-- load more
     <div class="flex justify-center pt-8 pb-4">
         <button class="btn-outline relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium border border-gray-500 text-primary-600 dark:border-gray-400 dark:text-primary-200">
             <span class="material-symbols-outlined">sync</span>
             Load more
         </button>
+    </div>-->
+
+    <!-- fullscreen dialogs -->
+    <div id="dialog_xb" class="[&.show]:opacity-100 [&.show]:h-full [&.show]:inset-0 [&.show_.dialog]:flex [&.show_.dialog]:inset-0 opacity-0 w-full h-0 z-50 overflow-auto fixed left-0 top-0 flex items-center justify-center {{ ($modalDoc==true) ? 'show' : '' }}" >
+        <div class="backDialog opacity-0"></div>
+        <!-- dialogs -->
+        <div class="dialog hidden z-50 flex-col gap-2 fixed bg-neutral-10 dark:bg-neutral-900">
+            <!-- header -->
+            <div class="min-h-[56px] flex flex-row items-center gap-4 px-4 pt-6">
+                <h3 class="text-title-lg flex flex-grow"><b>Programme de formation : <span class="text-green-500">{{ $designation }} {{ $intitule }}</span></b> </h3>
+
+                <button data-close="#dialog_xb" class="relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium text-primary-600 hover:bg-surface-200 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400">
+                    <span class="material-symbols-outlined">close</span>
+                    Fermer
+                </button>
+            </div>
+            <!-- body -->
+            <div class="relative text-body-lg px-8 md:px-20 py-4 overflow-y-scroll scrollbars">
+                <div class="flex flex justify-center py-4 ">
+                    <div class="grid grid-cols-1 gap-4">
+                            <div class="relative z-0">
+                                <h2 class="py-3 font-bold">Description</h2>
+                                {!!  $description  !!}
+                                <h2 class="py-2 font-bold">5 raisons de suivre cette formation</h2>
+                                {!!  $raison  !!}
+                                <h2 class="py-2 font-bold">Conditions d'admission</h2>
+                                {!!  $condition  !!}
+                                <h2 class="py-2 font-bold">Durée de la formation</h2>
+                                <b class="px-2 text-green-500">{!!  $duree  !!}</b>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+@push('styles')
+    <style>
+        .relative ul {
+            list-style-type: circle;
+            padding-left: 25px;
+        }
+    </style>
+@endpush

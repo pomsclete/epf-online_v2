@@ -5,7 +5,7 @@
           "text" => "Tableau de bord",
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
-      ],
+      ]/*,
        [
           "href" => [
               [
@@ -18,7 +18,7 @@
           ],
           "text" => "News",
           "is_multi" => true,
-      ]
+      ]*/
   ];
   $navigation_links = array_to_object($links);
 @endphp
@@ -44,8 +44,8 @@
           @foreach ($navigation_links as $link)
           <ul class="sidebar-menu flex flex-col">
               @if (!$link->is_multi)
-                <li class="relative {{ Request::routeIs($link->href) ? 'active' : '' }}">
-                  <a href="{{ route($link->href) }}" class="{{ Request::routeIs($link->href) ? 'active' : '' }} flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
+                <li class="relative active {{ Request::routeIs($link->href) ? 'active' : '' }}">
+                  <a href="{{ route($link->href) }}" class="{{ Request::routeIs($link->href) ? 'active' : '' }} active flex flex-row items-center gap-3 py-3 pl-4 pr-6 mb-1 rounded-full hover-icon [&.active]:text-gray-900 dark:[&.active]:text-gray-100 [&.active]:bg-secondary-100 dark:[&.active]:bg-secondary-700 hover:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08]">
                     {!!  $link->icon !!}
                     <span class="compact-title">{{ $link->text }}</span>
                   </a>

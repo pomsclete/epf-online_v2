@@ -5,6 +5,8 @@ namespace App\Livewire\User;
 
 use App\Models\InfoUsuer;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class DashboardComponent extends Component
@@ -12,9 +14,8 @@ class DashboardComponent extends Component
 
 
 
-    public function mount(){
-
-    }
+    #[Layout('components.layouts.app')]
+    #[Title('Tableau de bord')]
     public function render()
     {
         $data = InfoUsuer::where('user_id', Auth::user()->id)->get();

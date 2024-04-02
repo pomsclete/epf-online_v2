@@ -16,8 +16,8 @@
                 <div class="relative z-0">
                     <select wire:model="statut" id="examplexs2" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
                         <option selected="">Sélectionner le statut du document</option>
-                        <option value="0">Obligatoire</option>
-                        <option value="1">Non obligatoire</option>
+                        <option value="Obligatoire">Obligatoire</option>
+                        <option value="A confirmer">A confirmer</option>
                     </select>
                 </div>
             </div>
@@ -48,10 +48,10 @@
                     <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700 text-center">
                         <td>{{ $de->libelle }}</td>
                         <td>
-                            @if($de->obligation == 0)
+                            @if($de->obligation == "Obligatoire")
                                 <span class="text-red-500 text-md">Obligatoire</span>
                             @else
-                                <span class="text-red-500 text-md">Non obligatoire</span>
+                                <span class="text-red-500 text-md">A confirmer</span>
                             @endif
                         </td>
                         <td>

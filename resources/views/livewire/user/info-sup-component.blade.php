@@ -18,9 +18,12 @@
                         <div class="relative z-0 w-full">
                             <select wire:model="niveau" id="examplexs" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
                                 <option selected="">Niveau</option>
-                                <option value="1">Seconde</option>
-                                <option value="2">Première</option>
-                                <option value="3">Terminale</option>
+                                <option value="Seconde">Seconde</option>
+                                <option value="Première">Première</option>
+                                <option value="Terminale">Terminale</option>
+                                <option value="1ère année / Licence 1">1ère année / Licence 1</option>
+                                <option value="2ème année / Licence 2">2ème année / Licence 2</option>
+                                <option value="3ème année / Licence 3">3ème année / Licence 3</option>
                             </select>
                         </div>
                         <div class="text-red-800 text-xs">@error('niveau') {{ $message }} @enderror</div>
