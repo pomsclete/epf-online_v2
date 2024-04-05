@@ -79,7 +79,7 @@
               @endif
             </ul>
           @endforeach
-
+        {{--
         <div class="w-full flex flex-col gap-2 mt-12">
           <!-- title & content -->
           <div class="pb-2 px-4 compact-hide">
@@ -117,6 +117,7 @@
           </div>
 
         </div>
+        --}}
       </div>
     </div>
   </aside>

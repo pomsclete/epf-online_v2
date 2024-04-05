@@ -12,6 +12,7 @@ use App\Livewire\Admin\AddFormationComponent;
 use App\Livewire\Admin\ClasseComponent;
 use App\Livewire\Admin\ClasseDetailComponent;
 use \App\Livewire\User\DossierComponent;
+use \App\Livewire\Admin\AdmissionComponent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/formation/{id?}', AddFormationComponent::class)->name('admin.addformation');
     Route::get('/admin/classes', ClasseComponent::class)->name('admin.classe');
     Route::get('/admin/classe/{classe}', ClasseDetailComponent::class)->name('admin.classes');
+    Route::get('/admin/admission/{etat?}', AdmissionComponent::class)->name('admin.admission');
 });
 
 /*------------------------------------------

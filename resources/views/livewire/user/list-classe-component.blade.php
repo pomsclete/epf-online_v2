@@ -62,7 +62,7 @@
                                 <span class="hidden md:inline-block">Faire une demande</span>
                             </button>
                             @else
-                                <a href="{{ route('dossier',['numero' => $this->verif($rec->numero)]) }}" wire:navigate
+                                <a href="{{ route('dossier',['numero' => $this->verif($rec->id)]) }}" wire:navigate
                                         class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-black bg-green-200 dark:bg-primary-700 dark:text-primary-100">
                                <span class="material-symbols-outlined">
                                 eye_tracking
@@ -103,7 +103,7 @@
             <div class="relative text-body-lg px-8 md:px-20 py-4 overflow-y-scroll scrollbars">
                 <div class="flex flex justify-center py-4 ">
                     <div class="grid grid-cols-1 gap-4">
-                            <div class="relative z-0">
+                            <div class="relative desc z-0">
                                 <h2 class="py-3 font-bold">Description</h2>
                                 {!!  $description  !!}
                                 <h2 class="py-2 font-bold">5 raisons de suivre cette formation</h2>
@@ -135,7 +135,7 @@
 </div>
 @push('styles')
     <style>
-        .relative ul {
+        .desc ul {
             list-style-type: circle;
             padding-left: 25px;
         }

@@ -6,7 +6,13 @@
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
       ],
-       [
+        [
+          "href" => "admin.admission",
+          "text" => "Admissions",
+          "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
+          "is_multi" => false,
+      ],
+      /* [
           "href" => [
               [
                   "section_text" => "Admissions",
@@ -21,7 +27,7 @@
           ],
           "text" => "News",
           "is_multi" => true,
-      ],
+      ],*/
       [
           "href" => "admin.classe",
           "text" => "Gestion des classes",
