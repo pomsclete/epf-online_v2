@@ -18,9 +18,9 @@
                     </div>
                     <div class="relative flex items-center justify-between">
                         <h4 class="text-display-sm text-gray-800 dark:text-gray-200">12.5K</h4>
-                        <span class="text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-yellow-800 dark:text-yellow-100 bg-yellow-100 dark:bg-yellow-800">
+                        <a href="{{ route('admin.admission') }}" wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-yellow-800 dark:text-yellow-100 bg-yellow-100 dark:bg-yellow-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
-            </span>
+            </a>
                     </div>
                 </div>
                 <!-- small card -->
@@ -31,9 +31,9 @@
                     </div>
                     <div class="relative flex items-center justify-between">
                         <h4 class="text-display-sm text-gray-800 dark:text-gray-200">11K</h4>
-                        <span class="text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-error-800 dark:text-error-100 bg-error-100 dark:bg-error-800">
+                        <a href="{{ route('admin.admission',['etat' => 'en-cours']) }}"  wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-error-800 dark:text-error-100 bg-error-100 dark:bg-error-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
-            </span>
+            </a>
                     </div>
                 </div>
                 <!-- small card -->
@@ -44,9 +44,9 @@
                     </div>
                     <div class="relative flex items-center justify-between">
                         <h4 class="text-display-sm text-gray-800 dark:text-gray-200">115%</h4>
-                        <span class="text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800">
+                        <a href="{{ route('admin.admission',['etat' => 'deliberation']) }}"  wire:navigate class=" text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
-            </span>
+            </a>
                     </div>
                 </div>
                 <!-- small card -->
@@ -57,21 +57,23 @@
                     </div>
                     <div class="relative flex items-center justify-between">
                         <h4 class="text-display-sm text-gray-800 dark:text-gray-200">3.5K</h4>
-                        <span class="text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-green-800 dark:text-green-100 bg-green-100 dark:bg-green-800">
+                        <a href="{{ route('admin.admission',['etat' => 'finalise']) }}" wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-green-800 dark:text-green-100 bg-green-100 dark:bg-green-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
-            </span>
+            </a>
                     </div>
                 </div>
             </div>
             {{-- --}}
+            @livewire($profile)
 
-            <div class="grid grid-cols-1 gap-4 md:gap-6">
-                <!-- card -->
-                <div class="py-8 px-6 flex flex-col rounded-xl bg-white dark:bg-gray-900">
-                    <p class="text-body-lg">Insert your content in here</p>
-                </div>
-            </div>
         </div>
     </main>
 
 </div>
+@push('styles')
+    <style>
+        .cursor{
+            cursor: pointer;
+        }
+    </style>
+@endpush
