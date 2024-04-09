@@ -167,7 +167,7 @@ class DossierComponent extends Component
             } elseif($res->avance == 1){
                 return 'Documents déposés';
             } elseif($res->avance == 2) {
-                return "Documents validés";
+                return "Validation Documents en cours";
             }  elseif($res->avance == 3) {
                 return "En attente délibération";
             }
