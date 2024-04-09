@@ -17,7 +17,7 @@
                         <h3 class="text-title-md text-gray-800 dark:text-gray-200">Nouvelles demandes</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">12.5K</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(0) }}</h4>
                         <a href="{{ route('admin.admission') }}" wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-yellow-800 dark:text-yellow-100 bg-yellow-300 dark:bg-yellow-800">
                           <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
                         </a>
@@ -30,7 +30,7 @@
                         <h3 class="text-title-md text-gray-800 dark:text-gray-200">En cours de traitement</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">11K</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(1) }}</h4>
                         <a href="{{ route('admin.admission',['etat' => 'en-cours']) }}"  wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-error-800 dark:text-error-100 bg-error-300 dark:bg-error-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
             </a>
@@ -43,7 +43,7 @@
                         <h3 class="text-title-md text-gray-800 dark:text-gray-200">En attente délibération</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">115%</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(2) }}</h4>
                         <a href="{{ route('admin.admission',['etat' => 'deliberation']) }}"  wire:navigate class=" text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-blue-800 dark:text-blue-100 bg-blue-300 dark:bg-blue-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
             </a>
@@ -56,7 +56,7 @@
                         <h3 class="text-title-md text-gray-800 dark:text-gray-200">Dossiers finalisés</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">3.5K</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(3) }}</h4>
                         <a href="{{ route('admin.admission',['etat' => 'finalise']) }}" wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-green-800 dark:text-green-200 bg-green-300 dark:bg-green-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
             </a>

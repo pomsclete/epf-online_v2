@@ -84,7 +84,7 @@
                         </div>
                         <hr class="h-0 border-b-1 border-gray-200 dark:border-gray-700">
                         <div class="flex flex-row justify-content-center">
-                            @if($demande->avance == 0)
+                            @if($demande->avance != 4 || $demande->avance != 3 || $demande->avance != 2)
                             <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-secondary-700 dark:text-secondary-100">
                                 <span class="material-symbols-outlined">done</span>
                                 <span class="hidden lg:inline">Envoyer pour validation</span>
@@ -104,7 +104,7 @@
                         <div class="relative py-3 px-6">
                             <!-- linear progress -->
                             <div class="flex bg-gray-100 dark:bg-gray-700 rounded overflow-hidden h-2">
-                                <div class="flex bg-green-600 dark:bg-green-200" style="width: {{ $this->avancement() }}%;"></div>
+                                <div class="flex {{ ($this->avancementTxt() == "Dossier refusé" ? 'bg-red-600 dark:bg-red-200' : 'bg-green-600 dark:bg-green-200') }}" style="width: {{ $this->avancement() }}%;"></div>
                             </div>
                         </div>
 

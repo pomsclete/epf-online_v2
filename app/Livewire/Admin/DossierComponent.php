@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Admin;
 
-use App\Models\Annee;
 use App\Models\Demande;
 use App\Models\DocAFournirDemande;
 use App\Models\Document;
 use App\Models\NiveauFormation;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -20,7 +18,7 @@ class DossierComponent extends Component
 {
     public $numero , $idNiv;
     public $form,$file,$libelle,$doc;
-    public $intitule,$designation,$num,$duree,$date;
+    public $intitule,$designation,$num,$duree,$date,$name,$telephone,$email,$niveau,$serie;
     public $editModalOpen = false;
     public $isFormOpen = false;
     use WithFileUploads;
@@ -31,14 +29,16 @@ class DossierComponent extends Component
         $this->idNiv = $id;
     }
 
+
+
     public function editModal($id){
         $this->isFormOpen = true;
         $this->editModalOpen = true;
         $this->idNiv = $id;
         $donne = DocAFournirDemande::select('doc_a_fournir_demandes.updated_at','fichier','documents.libelle')
-                                    ->join('documents','documents.id','=','doc_a_fournir_demandes.document_id')
-                                    ->where('doc_a_fournir_demandes.id',$id)
-                                    ->get()->first();
+            ->join('documents','documents.id','=','doc_a_fournir_demandes.document_id')
+            ->where('doc_a_fournir_demandes.id',$id)
+            ->get()->first();
         $this->libelle = $donne->libelle;
         $this->doc = $donne->fichier;
     }
@@ -112,24 +112,37 @@ class DossierComponent extends Component
     }
 
     public function mount(){
-        $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree')
+        $year = Demande::where('numero',$this->numero)->get()->first();
+        if ($year->avance == 0) {
+            $year->update([
+                'status' => 1
+            ]);
+        }
+        $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree',
+                                        'name','telephone','email','niveau','serie','users.id as userId','demandes.id as demandeId')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('demandes', 'demandes.niveau_formation_id','=','niveau_formations.id')
+            ->join('users','users.id','=','demandes.user_id')
+            ->join('info_usuers','info_usuers.user_id','=','users.id')
             ->where('demandes.numero',$this->numero)
             ->first();
-
         $this->intitule = $niv->intitule;
         $this->designation = $niv->designation;
         $this->num = $niv->numero;
         $this->duree = $niv->duree;
         $this->date = $niv->created_at;
         $this->idNiv = $niv->idNiv;
+        $this->name = $niv->name;
+        $this->telephone = $niv->telephone;
+        $this->email = $niv->email;
+        $this->niveau = $niv->niveau;
+        $this->serie = $niv->serie;
     }
 
     public function verif(){
         $res = Demande::select('id')->where('niveau_formation_id',$this->idNiv)
-            ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+            ->where('numero', $this->numero)->orderBy('id','DESC')->first();
         if($res) {
             return $res->id;
         } else { return 0;}
@@ -137,7 +150,7 @@ class DossierComponent extends Component
 
     public function avancement(){
         $res = Demande::select('avance')->where('niveau_formation_id',$this->idNiv)
-            ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+            ->where('numero', $this->numero)->orderBy('id','DESC')->first();
         if($res){
             if($res->avance == 0) {
                 return 25;
@@ -160,7 +173,7 @@ class DossierComponent extends Component
 
     public function avancementTxt(){
         $res = Demande::select('avance')->where('niveau_formation_id',$this->idNiv)
-            ->where('user_id', Auth::user()->id)->orderBy('id','DESC')->first();
+            ->where('numero', $this->numero)->orderBy('id','DESC')->first();
         if($res){
             if($res->avance == 0) {
                 return 'Création du dossier';
@@ -181,19 +194,12 @@ class DossierComponent extends Component
         else { return "En attente candidature";}
     }
 
+
+
     #[Layout('components.layouts.app')]
-    #[Title('Suivi de dossier')]
+    #[Title('Traitements')]
     public function render()
     {
-        return view('livewire.user.dossier-component',[
-            'documents' => Document::select('libelle','avance','obligation','fichier','doc_a_fournir_demandes.etat','doc_a_fournir_demandes.id','doc_a_fournir_demandes.updated_at')
-                        ->join('doc_a_fournir_demandes','doc_a_fournir_demandes.document_id','=','documents.id')
-                        ->join('demandes','demandes.id','=','doc_a_fournir_demandes.demande_id')
-                        ->where('numero',$this->numero)
-                        ->get(),
-            'demande' => Demande::select('avance')->where('numero',$this->numero)->get()->first(),
-
-            'notifications' => Notification::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get()
-        ]);
+        return view('livewire.admin.dossier-component');
     }
 }
