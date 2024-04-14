@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\User;
 
 use App\Models\Annee;
@@ -80,9 +79,9 @@ class DossierComponent extends Component
 
     public function store()
     {
-        /*$this->validate([
+        $this->validate([
             'file' => 'required|mimes:pdf|max:2048'
-        ]);*/
+        ]);
         try {
             $anneeQuery = DocAFournirDemande::query();
             if (!empty($this->idNiv)) {

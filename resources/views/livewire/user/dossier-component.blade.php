@@ -84,10 +84,31 @@
                         </div>
                         <hr class="h-0 border-b-1 border-gray-200 dark:border-gray-700">
                         <div class="flex flex-row justify-content-center">
-                            @if($demande->avance != 4 || $demande->avance != 3 || $demande->avance != 2)
+                            @if($demande->avance > 0 && $demande->avance < 3 )
                             <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-secondary-700 dark:text-secondary-100">
                                 <span class="material-symbols-outlined">done</span>
                                 <span class="hidden lg:inline">Envoyer pour validation</span>
+                            </button>
+                            @elseif($demande->avance == 3)
+                            <button  class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-yellow-300 text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100">
+                                <span class="material-symbols-outlined">
+                                    hourglass_top
+                                    </span>
+                                <span class="hidden lg:inline">En attente délibération</span>
+                            </button>
+                            @elseif ($demande->avance == 4)
+                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-red-900 dark:bg-red-700 dark:text-red-100">
+                                <span class="material-symbols-outlined">
+                                    block
+                                    </span>
+                                <span class="hidden lg:inline">Demande refusée</span>
+                            </button>
+                            @else
+                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-green-900 dark:bg-green-700 dark:text-green-100">
+                                <span class="material-symbols-outlined">
+                                    file_download_done
+                                    </span>
+                                <span class="hidden lg:inline">Demande validée</span>
                             </button>
                             @endif
                         </div>
@@ -193,7 +214,7 @@
 
                     @endif
                     <div class="relative z-0">
-                        <input type="file" aria-label="deal1" wire:model="file" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
+                        <input type="file" accept="application/pdf" aria-label="deal1" wire:model="file" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
 
                         <label for="deal1" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Document</label>
                     </div>

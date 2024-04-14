@@ -17,7 +17,7 @@ use Livewire\WithFileUploads;
 class DossierComponent extends Component
 {
     public $numero , $idNiv;
-    public $form,$file,$libelle,$docum,$etat;
+    public $form,$file,$libelle,$docum,$etat,$statusDem;
     public $intitule,$designation,$num,$duree,$date,$name,$telephone,$email,$niveau,$serie,$adresse;
     public $editModalOpen = false;
     public $isFormOpen = false;
@@ -30,6 +30,24 @@ class DossierComponent extends Component
     }
 
 
+    public function sendDelib(){
+        try {
+            Demande::where('numero',$this->numero)->get()->first()->update([
+                'avance' => 3,
+                'status' => 3
+            ]);
+            $this->alert('success', 'Votre demande de validation a été envoyé avec succés',[
+                'position' => 'center',
+                'timer' => 2000,
+                'toast' => false,
+                'timerProgressBar' => true,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+        
+    }
 
     public function editModal($id){
         $this->isFormOpen = true;
@@ -81,9 +99,6 @@ class DossierComponent extends Component
 
     public function store($etat)
     {
-        /*$this->validate([
-            'file' => 'required|mimes:pdf|max:2048'
-        ]);*/
         try {
             $anneeQuery = DocAFournirDemande::query();
             if (!empty($this->idNiv)) {
@@ -113,13 +128,13 @@ class DossierComponent extends Component
 
     public function mount(){
         $year = Demande::where('numero',$this->numero)->get()->first();
-        if ($year->avance == 0) {
+        if ($year->avance != 0 && $year->status == 0) {
             $year->update([
                 'status' => 1
             ]);
         }
         $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree',
-                                        'name','telephone','email','niveau','serie','users.id as userId','demandes.id as demandeId','adresse')
+                                        'name','telephone','email','niveau','serie','users.id as userId','demandes.id as demandeId','adresse','demandes.status as statusDem')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('demandes', 'demandes.niveau_formation_id','=','niveau_formations.id')
@@ -139,6 +154,7 @@ class DossierComponent extends Component
         $this->niveau = $niv->niveau;
         $this->serie = $niv->serie;
         $this->adresse = $niv->adresse;
+        $this->statusDem = $niv->statusDem;
     }
 
     public function verif(){
@@ -202,7 +218,7 @@ class DossierComponent extends Component
     public function render()
     {
         return view('livewire.admin.dossier-component',[
-            'documents' => Document::select('libelle','avance','obligation','fichier','doc_a_fournir_demandes.etat','doc_a_fournir_demandes.id','doc_a_fournir_demandes.updated_at')
+            'documents' => Document::select('libelle','avance','obligation','fichier','doc_a_fournir_demandes.etat','doc_a_fournir_demandes.id','doc_a_fournir_demandes.updated_at','demandes.status as statusDem')
                 ->join('doc_a_fournir_demandes','doc_a_fournir_demandes.document_id','=','documents.id')
                 ->join('demandes','demandes.id','=','doc_a_fournir_demandes.demande_id')
                 ->where('numero',$this->numero)

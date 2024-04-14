@@ -43,7 +43,7 @@
                         <h3 class="text-title-md text-gray-800 dark:text-gray-200">En attente délibération</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(2) }}</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(3) }}</h4>
                         <a href="{{ route('admin.admission',['etat' => 'deliberation']) }}"  wire:navigate class=" text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-blue-800 dark:text-blue-100 bg-blue-300 dark:bg-blue-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
             </a>
@@ -53,10 +53,10 @@
                 <div class="{{ ($etat == 'finalise') ? 'bg-green-100' : 'bg-white' }} p-6 max-sm:w-60 max-sm:flex-shrink-0 flex flex-col justify-between rounded-xl  dark:bg-gray-900 overflow-hidden">
                     <!-- title -->
                     <div class="flex flex-row justify-between items-center mb-3">
-                        <h3 class="text-title-md text-gray-800 dark:text-gray-200">Dossiers finalisés</h3>
+                        <h3 class="text-title-md text-gray-800 dark:text-gray-200">Dossiers Acceptés</h3>
                     </div>
                     <div class="relative flex items-center justify-between">
-                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(3) }}</h4>
+                        <h4 class="text-display-sm text-gray-800 dark:text-gray-200">{{ $this->getStatDemand(5) }}</h4>
                         <a href="{{ route('admin.admission',['etat' => 'finalise']) }}" wire:navigate class="cursor text-label-lg flex items-center gap-1 px-2 py-2 rounded-full text-green-800 dark:text-green-200 bg-green-300 dark:bg-green-800">
               <span class="material-symbols-outlined !text-sm">visibility</span>CONSULTER
             </a>

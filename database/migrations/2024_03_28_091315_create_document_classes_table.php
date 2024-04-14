@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('document_id')->constrained()->cascadeOnDelete();
             $table->foreignId('niveau_formation_id')->constrained()->cascadeOnDelete();
-            $table->boolean('obligation');
+            $table->string('obligation');
             $table->boolean('etat')->default(0);
             $table->timestamps();
         });

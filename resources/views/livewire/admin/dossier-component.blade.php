@@ -39,15 +39,48 @@
 
                     <!-- card -->
                     <div class="p-6 flex flex-col rounded-xl bg-white dark:bg-gray-900">
-                        <div class="flex flex-row gap-2 items-center justify-between pb-3">
-                            <h3 class="text-title-md text-gray-800 dark:text-gray-200">Gallery</h3>
-                        </div>
-                        <div class="relative grid grid-cols-3 gap-2">
-                            <a href="../src/img/gallery/gal1.jpg" data-glightbox="title: Photo title; description: This i photo description" class="glightbox3 overflow-hidden" data-gallery="gallery1">
-                                <img class="hover:scale-150 transition duration-400" src="../src/img/gallery/gal1.jpg" alt="gallery image">
-                            </a>
-
-                        </div>
+                        @if($statusDem == 1)
+                        <button wire:click="sendDelib()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
+                                <span class="material-symbols-outlined">done</span>
+                                <span class="hidden lg:inline">Envoyer pour délibération</span>
+                            </button>
+                            @elseif ($statusDem == 3 )
+                            @if(auth()->user()->role == 2)
+                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-green-900 dark:bg-green-700 dark:text-green-100">
+                                <span class="material-symbols-outlined">done</span>
+                                <span class="hidden lg:inline">Validé la demande</span>
+                            </button>
+                            <button wire:click="addNotif()" class=" mt-2 btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-red-900 dark:bg-red-700 dark:text-red-100">
+                                <span class="material-symbols-outlined">
+                                    dangerous
+                                    </span>
+                                <span class="hidden lg:inline">Refusé la demande</span>
+                            </button>
+                            @else
+                            <button class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-yellow-300 text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100">
+                                <span class="material-symbols-outlined">
+                                    hourglass_top
+                                    </span>
+                                <span class="hidden lg:inline">En attente déliberation</span>
+                            </button>
+                            @endif
+                            @elseif ($statusDem == 4)
+                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
+                                <span class="material-symbols-outlined">
+                                    block
+                                    </span>
+                                <span class="hidden lg:inline">Demande refusée</span>
+                            </button>
+                            @else
+                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
+                                <span class="material-symbols-outlined">
+                                    file_download_done
+                                    </span>
+                                <span class="hidden lg:inline">Demande validée</span>
+                            </button>
+                            @endif
+                            
+                            
                     </div>
                 </div>
 
@@ -130,7 +163,7 @@
             <div class="min-h-[56px] flex flex-row items-center gap-4 px-4 pt-6">
                 <h3 class="text-title-lg flex flex-grow"><b>Consulter le document déposé</b> </h3>
 
-                <button data-close="#dialog_xb" class="relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium text-primary-600 hover:bg-surface-200 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400">
+                <button data-close="#dialog_xb"  class="relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium text-primary-600 hover:bg-surface-200 focus:bg-surface-400 dark:text-primary-200 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400">
                     <span class="material-symbols-outlined">close</span>
                     Fermer
                 </button>
@@ -171,6 +204,43 @@
 
                         <object width="100%" height="600" data="{{ asset('storage/candidat/'.$docum) }}"></object>
                     </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dialog_a" class="[&.show_.backDialog]:opacity-60 [&.show]:opacity-100 [&.show]:h-full [&.show]:inset-0 [&.show_.backDialog]:inset-0 duration-[400ms] ease-[cubic-bezier(0, 0, 1)] opacity-0 w-full h-0 z-50 overflow-auto fixed left-0 top-0 flex items-center justify-center {{ ($isFormOpen==true) ? 'show' : '' }}">
+        <div data-close="#dialog_a" class="backDialog z-40 overflow-auto fixed bg-black"></div>
+
+        <!-- dialogs -->
+        <div class="z-50 flex flex-col w-11/12 sm:w-[480px] h-auto bg-surface-100 dark:bg-surfacedark-100 rounded-[28px]">
+            <div class="flex flex-col gap-4 justify-start py-6">
+                <div class="flex justify-between items-center px-6">
+                    <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">
+                        {{ ($editModalOpen) ? "Modifier l'année scolaire" : "Ajouter une année scolaire" }}
+
+                    </h3>
+
+                    <!-- close -->
+                    <div data-close="#dialog_a" class="material-symbols-outlined cursor-pointer">close</div>
+                </div>
+
+                <!-- Form -->
+                <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
+                    <div class="relative z-0">
+                        <input type="text" aria-label="deal1" wire:model="annee_scolaire" id="deal1" class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder="2023-2024"  required>
+
+                        <label for="deal1" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Année scolaire</label>
+                    </div>
+                    <div class="text-red-800 text-xs">@error('annee_scolaire') {{ $message }} @enderror</div>
+                    <div class="relative">
+                        <button wire:click.prevent="store()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                            <span class="material-symbols-outlined">add</span><span class="ml-1 compact-hide">
+                                 {{ ($editModalOpen) ? "Mettre à jour" : " Ajouter une année" }}
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
