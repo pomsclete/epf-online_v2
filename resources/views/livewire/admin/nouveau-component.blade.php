@@ -26,7 +26,7 @@
                                 {{ $dem->niveau.' '.$dem->serie }}
                             </td>
                             <td>
-                                <a href="{{ route('traitement',['numero' => $dem->numero]) }}" wire:navigate class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-secondary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-100">
+                                <a href="{{ route('traitement',['numero' => $dem->numero]) }}" wire:navigate class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-yellow-100 text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100">
                                     <span class="material-symbols-outlined">visibility</span>
                                     Consulter
                                 </a>

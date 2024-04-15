@@ -20,7 +20,7 @@ class AddDocClasseComponent extends Component
 
     public function mount(){
         $this->documents =  Document::orderBy('libelle','ASC')->get();
-        $this->classe = 3;
+        $this->classe = 1;
     }
 
     public function confirmed($id)
