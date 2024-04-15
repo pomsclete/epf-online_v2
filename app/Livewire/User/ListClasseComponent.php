@@ -112,7 +112,7 @@ class ListClasseComponent extends Component
             } elseif($res->avance == 1){
                 return 'Documents déposés';
             } elseif($res->avance == 2) {
-                return "Validation Documents en cours";
+                return "Documents validés";
             }  elseif($res->avance == 3) {
                     return "En attente délibération";
             }
