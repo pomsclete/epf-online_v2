@@ -18,7 +18,7 @@ use Livewire\WithFileUploads;
 class DossierComponent extends Component
 {
     public $numero , $idNiv;
-    public $form,$file,$libelle,$doc;
+    public $form,$file,$libelle,$doc,$demandId;
     public $intitule,$designation,$num,$duree,$date;
     public $editModalOpen = false;
     public $isFormOpen = false;
@@ -60,12 +60,7 @@ class DossierComponent extends Component
     public function addNotif()
     {
         try {
-            Notification::create([
-                'titre' => 'Validation document',
-                'content' => "Un étudiant est en attente de validation de dossier",
-                'contentEtu' => "Envoi pour demande de validation de documents",
-                'user_id' => Auth::user()->id
-            ]);
+           
             $this->alert('success', 'Votre demande de validation a été envoyé avec succés',[
                 'position' => 'center',
                 'timer' => 2000,
@@ -111,7 +106,7 @@ class DossierComponent extends Component
     }
 
     public function mount(){
-        $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree')
+        $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree','demandes.id as demandId')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('demandes', 'demandes.niveau_formation_id','=','niveau_formations.id')
@@ -124,6 +119,7 @@ class DossierComponent extends Component
         $this->duree = $niv->duree;
         $this->date = $niv->created_at;
         $this->idNiv = $niv->idNiv;
+        $this->demandId = $niv->demandId;
     }
 
     public function verif(){
@@ -146,9 +142,7 @@ class DossierComponent extends Component
                 return 75;
             } elseif($res->avance == 3) {
                 return 95;
-            }
-            elseif($res->avance == 4) {
-                return 100;
+            
             }
             else {
                 return 100;
@@ -170,11 +164,8 @@ class DossierComponent extends Component
             }  elseif($res->avance == 3) {
                 return "En attente délibération";
             }
-            elseif($res->avance == 4) {
-                return "Dossier refusé";
-            }
             else {
-                return "Dossier accepté et lettre d'admission disponible";
+                return "Dossier finalisé";
             }
         }
         else { return "En attente candidature";}
@@ -190,7 +181,7 @@ class DossierComponent extends Component
                         ->join('demandes','demandes.id','=','doc_a_fournir_demandes.demande_id')
                         ->where('numero',$this->numero)
                         ->get(),
-            'demande' => Demande::select('avance')->where('numero',$this->numero)->get()->first(),
+            'demande' => Demande::select('avance','status','motif')->where('numero',$this->numero)->get()->first(),
 
             'notifications' => Notification::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get()
         ]);

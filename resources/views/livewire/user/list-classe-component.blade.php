@@ -63,7 +63,7 @@
                             </button>
                             @else
                                 <a href="{{ route('dossier',['numero' => $this->verif($rec->id)]) }}" wire:navigate
-                                        class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-black bg-green-200 dark:bg-primary-700 dark:text-primary-100">
+                                        class="fabs relative inline-flex flex-row items-center justify-center h-12 gap-x-2 py-4 px-6 rounded-xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium text-black bg-green-200 dark:bg-surfacedark-100 dark:text-primary-100">
                                <span class="material-symbols-outlined">
                                 eye_tracking
                                 </span>

@@ -32,7 +32,8 @@ class DeliberationComponent extends Component
                 ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
                 ->join('formations', 'formations.id','=','niveau_formations.formation_id')
                 ->where('status',3) ->where('annee_id',$year->id)
-                ->get()
+                ->get(),
+                'year' => $year
         ]);
     }
 }

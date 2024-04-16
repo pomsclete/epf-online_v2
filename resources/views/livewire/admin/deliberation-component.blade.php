@@ -13,7 +13,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($demandes as $dem)
+                    @forelse($demandes as $dem)
                         <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700" style="text-align: center">
                             <td>
                                 {{ $dem->name }}
@@ -35,11 +35,20 @@
                                         rule
                                         </span>
                                     En attente
-                                </a>
+                                    </button>
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                <div class="flex items-center gap-2 justify-center relative bg-blue-100 text-slate-700 p-4 rounded">
+                                    <i class="material-symbols-outlined">info</i>
+                                    <p class="text-center">AUCUNE <span>DEMANDE EN ATTENTE DE DELIBERATION</span> N'A ÉTÉ ENREGISTRÉ</p>
+                                  </div>
+                            </td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
             </div>

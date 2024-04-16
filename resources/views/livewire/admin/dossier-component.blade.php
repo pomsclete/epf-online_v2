@@ -39,40 +39,42 @@
 
                     <!-- card -->
                     <div class="p-6 flex flex-col rounded-xl bg-white dark:bg-gray-900">
-                        @if($statusDem == 1)
+                        @if($status == 1)
                         <button wire:click="sendDelib()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
                                 <span class="material-symbols-outlined">done</span>
                                 <span class="hidden lg:inline">Envoyer pour délibération</span>
                             </button>
-                            @elseif ($statusDem == 3 )
-                            @if(auth()->user()->role == 2)
-                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-green-900 dark:bg-green-700 dark:text-green-100">
-                                <span class="material-symbols-outlined">done</span>
-                                <span class="hidden lg:inline">Validé la demande</span>
-                            </button>
-                            <button wire:click="addNotif()" class=" mt-2 btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-red-900 dark:bg-red-700 dark:text-red-100">
-                                <span class="material-symbols-outlined">
-                                    dangerous
-                                    </span>
-                                <span class="hidden lg:inline">Refusé la demande</span>
-                            </button>
-                            @else
-                            <button class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-yellow-300 text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100">
-                                <span class="material-symbols-outlined">
-                                    hourglass_top
-                                    </span>
-                                <span class="hidden lg:inline">En attente déliberation</span>
-                            </button>
-                            @endif
-                            @elseif ($statusDem == 4)
-                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
+                            @elseif ($status == 3 )
+                                @if(auth()->user()->role == 2)
+                                <button wire:click="valide()" 
+                                wire:confirm.prompt="Êtes vous sure de vouloir valider la demande?\n\nTaper CONFIRMER pour valider|CONFIRMER"
+                                class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-green-900 dark:bg-green-700 dark:text-green-100">
+                                    <span class="material-symbols-outlined">done</span>
+                                    <span class="hidden lg:inline">Validé la demande</span>
+                                </button>
+                                <button wire:click="refus()" class=" mt-2 btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-red-900 dark:bg-red-700 dark:text-red-100">
+                                    <span class="material-symbols-outlined">
+                                        dangerous
+                                        </span>
+                                    <span class="hidden lg:inline">Refusé la demande</span>
+                                </button>
+                                @else
+                                <button class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-yellow-300 text-yellow-900 dark:bg-yellow-700 dark:text-yellow-100">
+                                    <span class="material-symbols-outlined">
+                                        hourglass_top
+                                        </span>
+                                    <span class="hidden lg:inline">En attente déliberation</span>
+                                </button>
+                                @endif
+                            @elseif ($status == 4)
+                            <button class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-white dark:bg-red-700 dark:text-white">
                                 <span class="material-symbols-outlined">
                                     block
                                     </span>
                                 <span class="hidden lg:inline">Demande refusée</span>
                             </button>
                             @else
-                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
+                            <button  class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-primary-900 dark:bg-blue-700 dark:text-blue-100">
                                 <span class="material-symbols-outlined">
                                     file_download_done
                                     </span>
@@ -206,7 +208,46 @@
             </div>
         </div>
     </div>
+    <!-- dialog refus -->
+    <div id="dialog_a" class="[&.show_.backDialog]:opacity-60 [&.show]:opacity-100 [&.show]:h-full [&.show]:inset-0 [&.show_.backDialog]:inset-0 duration-[400ms] ease-[cubic-bezier(0, 0, 1)] opacity-0 w-full h-0 z-50 overflow-auto fixed left-0 top-0 flex items-center justify-center {{ ($isFormOpenMotif==true) ? 'show' : '' }}">
+        <div data-close="#dialog_a" class="backDialog z-40 overflow-auto fixed bg-black"></div>
 
+        <!-- dialogs -->
+        <div class="z-50 flex flex-col w-11/12 sm:w-[480px] h-auto bg-surface-100 dark:bg-surfacedark-100 rounded-[28px]">
+            <div class="flex flex-col gap-4 justify-start py-6">
+                <div class="flex justify-between items-center px-6">
+                    <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">
+                       Renseigner le motif du rejet
+
+                    </h3>
+
+                    <!-- close -->
+                    <div data-close="#dialog_a" class="material-symbols-outlined cursor-pointer">close</div>
+                </div>
+
+                <!-- Form -->
+                <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
+                    <div class="relative z-0">
+                        <!-- text editor -->
+                        <textarea wire:model="motif" class="texteditor relative w-full leading-5 relative pt-6 px-4 rounded-t text-gray-800 bg-gray-100 dark:bg-gray-700 border-b focus:border-b-2 border-gray-500 dark:border-gray-400 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:focus:border-primary-200" id="texteditor" rows="3"></textarea>
+
+                        <label for="texteditor" class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-neutral-900 duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface-300 dark:peer-focus:bg-surfacedark-300 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200">Motif du rejet</label>
+                    </div>
+                    <div class="text-red-800 text-xs">@error('motif') {{ $message }} @enderror</div>
+                    <div class="relative">
+                        <button wire:click.prevent="submitRefus()" class="btn w-full relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
+                            <span class="material-symbols-outlined">
+                                save
+                                </span>
+                            <span class="ml-1 compact-hide">
+                                 Confirmer
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </div>
 

@@ -14,7 +14,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($demandes as $dem)
+                    @forelse($demandes as $dem)
                         <tr class="[&amp;.selected]:!bg-primary-100 dark:[&amp;.selected]:!bg-primary-700" style="text-align: center">
                             <td>
                                 {{ $dem->name }}
@@ -32,7 +32,16 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <div class="flex items-center justify-center gap-2 relative bg-yellow-100 text-slate-700 p-4 rounded">
+                                    <i class="material-symbols-outlined">info</i>
+                                    <p class="text-center">AUCUNE <span>NOUVELLE DEMANDE</span> N'A ÉTÉ ENREGISTRÉ</p>
+                                  </div>
+                            </td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
             </div>

@@ -96,20 +96,46 @@
                                     </span>
                                 <span class="hidden lg:inline">En attente délibération</span>
                             </button>
-                            @elseif ($demande->avance == 4)
-                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-red-300 text-red-900 dark:bg-red-700 dark:text-red-100">
-                                <span class="material-symbols-outlined">
-                                    block
-                                    </span>
-                                <span class="hidden lg:inline">Demande refusée</span>
-                            </button>
+                            @elseif ($demande->avance == 4 && $demande->status == 4)
+                            <div id="alert_b" class="show [&.show]:flex hidden justify-between items-center relative bg-red-50 text-red-700 px-6 py-8 rounded w-full">
+                                <div>
+                                  <div class="flex flex-row justify-between">
+                                    <h3 class="text-title-lg font-bold mb-2">Désolé !</h3>
+                              
+                                    <button type="button" data-close="#alert_b">
+                                      <span class="text-2xl"></span>
+                                    </button>
+                                  </div>
+                                  <p>Votre demande a été refusé</p>
+                                  <p class="mb-6 mr-6 text-body-lg">
+                                    <u><b>Motif :</b></u> <br>
+                                    {{ $demande->motif}}
+                                </p>
+                                </div>
+                              </div>
                             @else
-                            <button wire:click="addNotif()" class="btn-tonal relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-green-300 text-green-900 dark:bg-green-700 dark:text-green-100">
-                                <span class="material-symbols-outlined">
-                                    file_download_done
-                                    </span>
-                                <span class="hidden lg:inline">Demande validée</span>
-                            </button>
+                            <div id="alert_b" class="show [&.show]:flex hidden justify-between items-center relative bg-green-50 text-green-700 px-6 py-8 rounded">
+                                <div>
+                                  <div class="flex flex-row justify-between">
+                                    <h3 class="text-title-lg font-bold mb-2">Bravo !</h3>
+                              
+                                    <button type="button" data-close="#alert_b">
+                                      <span class="text-2xl"></span>
+                                    </button>
+                                  </div>
+                                  <p class="mb-6 mr-6 text-body-lg">
+                                    Votre demande de préinscription a été accepté. Nous vous prions de vouloir bien 
+                                    téléchargé votre lettre de demande d'admission et se présenter à notre siège afin de finaliser votre inscription.
+                                  </p>
+                              
+                                  <button class="btn relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-8 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-error-600 text-white dark:bg-error-200 dark:text-error-800">
+                                    <span class="material-symbols-outlined">
+                                        download
+                                        </span>
+                                    Télécharger la lettre d'admission
+                                  </button>
+                                </div>
+                              </div>
                             @endif
                         </div>
                     </div>
@@ -137,7 +163,7 @@
                             <h3 class="text-title-md text-gray-800 dark:text-gray-200">Notifications</h3>
                         </div>
                         <div class="relative">
-                            <div class="h-72 overflow-y-auto scrollbars show pl-6 pr-6">
+                            <div class="h-40 overflow-y-auto scrollbars show pl-6 pr-6">
                                 <ul class="relative border-l border-gray-200 dark:border-gray-700">
                                     @foreach($notifications as $notif)
                                     <li class="mb-4 ml-4">
@@ -151,6 +177,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

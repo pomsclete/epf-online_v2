@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('annee_id')->constrained()->cascadeOnDelete();
             $table->integer('avance')->default(0);
             $table->integer('status')->default(0);
+            $table->text('motif')->nullable();
             $table->timestamps();
         });
     }

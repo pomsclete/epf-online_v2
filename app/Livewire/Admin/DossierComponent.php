@@ -17,10 +17,10 @@ use Livewire\WithFileUploads;
 class DossierComponent extends Component
 {
     public $numero , $idNiv;
-    public $form,$file,$libelle,$docum,$etat,$statusDem;
+    public $form,$file,$libelle,$docum,$etat,$statusDem,$demandId,$motif;
     public $intitule,$designation,$num,$duree,$date,$name,$telephone,$email,$niveau,$serie,$adresse;
     public $editModalOpen ,$isFormOpenD = false;
-    public $isFormOpen = false;
+    public $isFormOpen,$isFormOpenMotif = false;
     use WithFileUploads;
     use LivewireAlert;
 
@@ -47,6 +47,59 @@ class DossierComponent extends Component
             dd($th);
         }
         
+    }
+
+    public function valide(){
+        try {
+            Demande::where('numero',$this->numero)->get()->first()->update([
+                'avance' => 4,
+                'status' => 5
+            ]);
+            $this->alert('success', 'La demande a été validé avec succés',[
+                'position' => 'center',
+                'timer' => 2000,
+                'toast' => false,
+                'timerProgressBar' => true,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+    }
+
+    public function refus(){
+        $this->isFormOpenMotif = true;
+        $this->resetData();
+    }
+
+    public function resetData(){
+        $this->motif= null;
+        $this->resetValidation();
+    }
+
+    public function submitRefus(){
+        $ruleFields = [
+            'motif' => 'required|string|min:30',
+        ];
+        $validatedData = $this->validate($ruleFields);
+        try {
+            Demande::where('numero',$this->numero)->get()->first()->update([
+                'avance' => 4,
+                'status' => 4,
+                'motif' => $this->motif
+            ]);
+            $this->alert('success', 'La demande a été refusé avec succés',[
+                'position' => 'center',
+                'timer' => 2000,
+                'toast' => false,
+                'timerProgressBar' => true,
+            ]);
+            $this->resetData();
+            $this->isFormOpenMotif = true;
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
     }
 
     public function editModal($id){
@@ -127,12 +180,6 @@ class DossierComponent extends Component
     }
 
     public function mount(){
-        $year = Demande::where('numero',$this->numero)->get()->first();
-        if ($year->avance != 0 && $year->status == 0) {
-            $year->update([
-                'status' => 1
-            ]);
-        }
         $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree',
                                         'name','telephone','email','niveau','serie','users.id as userId','demandes.id as demandeId','adresse','demandes.status as statusDem')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
@@ -155,6 +202,7 @@ class DossierComponent extends Component
         $this->serie = $niv->serie;
         $this->adresse = $niv->adresse;
         $this->statusDem = $niv->statusDem;
+        $this->demandId = $niv->demandId;
     }
 
     public function verif(){
@@ -178,9 +226,6 @@ class DossierComponent extends Component
             } elseif($res->avance == 3) {
                 return 95;
             }
-            elseif($res->avance == 4) {
-                return 100;
-            }
             else {
                 return 100;
             }
@@ -201,11 +246,9 @@ class DossierComponent extends Component
             }  elseif($res->avance == 3) {
                 return "En attente délibération";
             }
-            elseif($res->avance == 4) {
-                return "Dossier refusé";
-            }
+           
             else {
-                return "Dossier accepté et lettre d'admission disponible";
+                return "Dossier finalisé";
             }
         }
         else { return "En attente candidature";}
@@ -217,12 +260,19 @@ class DossierComponent extends Component
     #[Title('Traitements')]
     public function render()
     {
+        $year = Demande::where('numero',$this->numero)->get()->first();
+        if ($year->avance != 0 && $year->status == 0) {
+            $year->update([
+                'status' => 1
+            ]);
+        }
         return view('livewire.admin.dossier-component',[
             'documents' => Document::select('libelle','avance','obligation','fichier','doc_a_fournir_demandes.etat','doc_a_fournir_demandes.id','doc_a_fournir_demandes.updated_at','demandes.status as statusDem')
                 ->join('doc_a_fournir_demandes','doc_a_fournir_demandes.document_id','=','documents.id')
                 ->join('demandes','demandes.id','=','doc_a_fournir_demandes.demande_id')
                 ->where('numero',$this->numero)
                 ->get(),
+                'status' => $year->status
         ]);
     }
 

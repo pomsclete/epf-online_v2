@@ -17,7 +17,8 @@ class NouveauComponent extends Component
                 ->join('users','users.id','=','demandes.user_id')
                 ->join('info_usuers','info_usuers.user_id','=','users.id')
                 ->where('status',0) ->where('annee_id',$year->id)
-                ->get()
+                ->get(),
+                'year' => $year
         ]);
     }
 }

@@ -117,7 +117,7 @@ class ListClasseComponent extends Component
                     return "En attente délibération";
             }
             else {
-                return "Dossier accepté et lettre d'admission disponible";
+                return "Dossier finalisé";
             }
         }
         else { return "En attente candidature";}

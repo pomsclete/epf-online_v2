@@ -106,7 +106,7 @@
             <div class="flex flex-col gap-4 justify-start py-6">
                 <div class="flex justify-between items-center px-6">
                     <h3 class="text-title-lg leading-7 font-normal text-gray-900 dark:text-gray-100">
-                        {{ ($editModalOpen) ? "Modifier l'année scolaire" : "Ajouter une année scolaire" }}
+                        {{ ($editModalOpen) ? "Modifier le niveau" : "Ajouter un niveau" }}
 
                     </h3>
 
