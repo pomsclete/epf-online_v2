@@ -8,6 +8,14 @@
                     <!-- close -->
                 </div>
                 <div class="relative flex flex-col gap-4">
+                    <div class="relative z-0 w-full">
+                        <select wire:model="civilite" id="civilite" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
+                            <option selected="" disabled>Civilité</option>
+                            <option value="Monsieur">Monsieur</option>
+                            <option value="Madame">Madame</option>
+                        </select>
+                    </div>
+                    <div class="text-red-800 text-xs">@error('civilite') {{ $message }} @enderror</div>
                     <!-- title -->
                     <div class="relative z-0">
                         <input wire:model="telephone" type="text" aria-label="project_" name="project_" id="project_" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer" placeholder=" " value="">
@@ -17,7 +25,7 @@
                         <!-- select outline -->
                         <div class="relative z-0 w-full">
                             <select wire:model="niveau" id="examplexs" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
-                                <option selected="">Niveau</option>
+                                <option selected="" disabled>Niveau</option>
                                 <option value="Seconde">Seconde</option>
                                 <option value="Première">Première</option>
                                 <option value="Terminale">Terminale</option>
@@ -29,7 +37,7 @@
                         <div class="text-red-800 text-xs">@error('niveau') {{ $message }} @enderror</div>
                         <!-- task -->
                         <div class="relative z-0 w-full">
-                            <select wire:model="serie" id="examplexs" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
+                            <select wire:model="serie" id="serie" class="w-full h-12 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200">
                                 <option selected="">Série du Bac</option>
                                 <option value="Littéraire">Littéraire</option>
                                 <option value="Scientifique">Scientifique</option>

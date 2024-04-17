@@ -12,13 +12,14 @@ use Livewire\Component;
 class InfoSupComponent extends Component
 {
     public $modalDoc = true;
-    public $telephone,$serie,$niveau,$adresse;
+    public $telephone,$serie,$niveau,$adresse,$civilite;
     use LivewireAlert;
 
     public function store()
     {
         $ruleFields = [
             'telephone' => 'required',
+            'civilite' => 'required',
             'niveau' => 'required',
             'adresse' => 'required',
             'serie' => 'required'
@@ -27,6 +28,7 @@ class InfoSupComponent extends Component
         try {
                 InfoUsuer::create([
                     'telephone' => $this->telephone,
+                    'civilite' => $this->civilite,
                     'niveau' => $this->niveau,
                     'adresse' => $this->adresse,
                     'serie' => $this->serie,
@@ -34,6 +36,7 @@ class InfoSupComponent extends Component
                 ]);
 
             $this->telephone="";
+            $this->civilite="";
             $this->niveau="";
             $this->adresse="";
             $this->serie="";

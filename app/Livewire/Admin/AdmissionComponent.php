@@ -26,20 +26,6 @@ class AdmissionComponent extends Component
     #[Title('Admission')]
     public function render()
     {
-
-        if($this->etat == "deliberation"){
-            $profile = "admin.deliberation-component";
-        } elseif($this->etat == "en-cours"){
-            $profile = "admin.en-cours-component";
-        }
-        elseif($this->etat == "finalise"){
-            $profile = "admin.finalise-component";
-        }
-        else {
-            $profile = "admin.nouveau-component";
-        }
-        return view('livewire.admin.admission-component',[
-            'profile' => $profile,
-        ]);
+        return view('livewire.admin.admission-component');
     }
 }

@@ -128,12 +128,12 @@
                                     téléchargé votre lettre de demande d'admission et se présenter à notre siège afin de finaliser votre inscription.
                                   </p>
                               
-                                  <button class="btn relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-8 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-error-600 text-white dark:bg-error-200 dark:text-error-800">
+                                  <a href="{{ route('lettre-admission',['numero' => $numero]) }}" target="_blank" class="btn relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-8 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-error-600 text-white dark:bg-error-200 dark:text-error-800">
                                     <span class="material-symbols-outlined">
                                         download
                                         </span>
                                     Télécharger la lettre d'admission
-                                  </button>
+                                    </a>
                                 </div>
                               </div>
                             @endif

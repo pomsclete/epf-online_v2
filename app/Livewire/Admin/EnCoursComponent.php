@@ -4,11 +4,15 @@ namespace App\Livewire\Admin;
 
 use App\Models\Annee;
 use App\Models\Demande;
-use App\Models\Document;
 use Livewire\Component;
+use App\Models\Document;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
 
 class EnCoursComponent extends Component
 {
+    #[Layout('components.layouts.app')]
+    #[Title('Demandes en cours de traitement')]
     public function render()
     {
         $year = Annee::orderBy('id','DESC')->get()->first();

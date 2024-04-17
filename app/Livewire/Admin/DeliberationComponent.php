@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Models\Annee;
 use App\Models\Demande;
+use Livewire\Component;
 use App\Models\Document;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class DeliberationComponent extends Component
@@ -21,6 +23,8 @@ class DeliberationComponent extends Component
         ]);
     }
     
+    #[Layout('components.layouts.app')]
+    #[Title('Demandes en délibération')]
     public function render()
     {
         $year = Annee::orderBy('id','DESC')->get()->first();

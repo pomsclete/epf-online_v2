@@ -6,28 +6,24 @@
           "icon" => "<span class='material-symbols-outlined'>home</span>",
           "is_multi" => false,
       ],
-        [
-          "href" => "admin.admission",
-          "text" => "Admissions",
-          "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
-          "is_multi" => false,
-      ],
-      /* [
+       
+       [
           "href" => [
               [
                   "section_text" => "Admissions",
                   "icon" => "<span class='material-symbols-outlined'>manufacturing</span>",
                   "section_list" => [
-                      ["href" => "admin.annee", "text" => "Nouvelles demandes"],
-                      ["href" => "admin.niveau", "text" => "Traitements.."],
-                      ["href" => "admin.document", "text" => "Délibérations.."],
-                      ["href" => "admin.formation", "text" => "Dossiers finalisés"],
+                      ["href" => "admin.admission.new", "text" => "Nouvelles demandes"],
+                      ["href" => "admin.admission.cours", "text" => "Traitements.."],
+                      ["href" => "admin.admission.delib", "text" => "Délibérations.."],
+                      ["href" => "admin.admission.final", "text" => "Dossiers Acceptés"],
+                      ["href" => "admin.admission.refuse", "text" => "Dossiers Refusés"],
                   ]
               ]
           ],
           "text" => "News",
           "is_multi" => true,
-      ],*/
+      ],
       [
           "href" => "admin.classe",
           "text" => "Gestion des classes",
