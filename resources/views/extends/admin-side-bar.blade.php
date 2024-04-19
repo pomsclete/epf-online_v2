@@ -31,7 +31,7 @@
       </button>
 
       
-      <div class="relative hidden sm:inline-block">
+      {{--<div class="relative hidden sm:inline-block">
         <button data-type="dropdown" data-target="#dropdown-apps" class="btn relative !inline-flex !items-center justify-center w-12 h-12 gap-x-2 p-2.5 rounded-[6.25rem] text-sm tracking-[.00714em] text-center font-medium hover:bg-primary-600/[0.08] focus:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] dark:focus:bg-primary-200/[0.08]">
           <span aria-label="Apps" data-microtip-position="bottom" role="tooltip" class="material-symbols-outlined !text-[28px] pointer-events-none">apps</span>
         </button>
@@ -65,9 +65,9 @@
             </a>
           </div>
         </div>
-      </div>
+      </div>--}}
 
-      <div class="relative hidden sm:inline-block">
+     {{-- <div class="relative hidden sm:inline-block">
         <!-- trigger bottom sheets -->
         <button data-type="dialogs" data-target="#sheets_b" class="btn relative !inline-flex !items-center justify-center w-12 h-12 gap-x-2 p-2.5 rounded-[6.25rem] text-sm tracking-[.00714em] text-center font-medium hover:bg-primary-600/[0.08] focus:bg-primary-600/[0.08] dark:hover:bg-primary-200/[0.08] dark:focus:bg-primary-200/[0.08]">
           <span aria-label="Settings" data-microtip-position="bottom" role="tooltip" class="material-symbols-outlined !text-[28px] pointer-events-none">settings</span>
@@ -129,7 +129,7 @@
             <a href="../user/notification.html" class="hover:underline">Show all Notifications</a>
           </div>
         </div>
-      </div>
+      </div>--}}
 
       <div class="relative">
         <button data-type="dropdown" data-target="#dropdown1" class="btn w-12 h-12 gap-x-2 py-2.5 flex items-center gap-2 justify-center rounded-full text-sm tracking-[0.15px]">
@@ -139,21 +139,15 @@
         <!-- menus -->
         <ul id="dropdown1" data-type="dropdownmenu" class="[&.show]:!opacity-100 [&.show]:!visible opacity-0 invisible absolute top-[3.1rem] z-30 transition duration-400 ease-in-out left-auto right-0 min-w-[200px] inline-flex flex-col py-2 rounded-xl bg-white dark:bg-gray-900 shadow-md dark:shadow-gray-50/10 max-sm:fixed max-sm:mt-3 max-sm:left-4 max-sm:right-4">
           <li class="relative">
-            <a href="../user/profile.html" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
+            <a href="{{ route('admin.profile')}}" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
             <span class="material-symbols-outlined">person</span>
-              Profile
+              Profil
             </a>
           </li>
           <li class="relative">
-            <a href="../user/edit-profile.html" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
+            <a href="{{ route('parametre')}}" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
             <span class="material-symbols-outlined">settings</span>
-              Settings
-            </a>
-          </li>
-          <li class="relative">
-            <a href="../docs/support.html" class="flex flex-row items-center gap-3 py-2.5 px-6 hover-icon hover:bg-surface-200 dark:hover:bg-surfacedark-200">
-            <span class="material-symbols-outlined">help_center</span>
-              Help
+              Paramètrage
             </a>
           </li>
           <li class="relative border-t border-gray-100 dark:border-gray-800">

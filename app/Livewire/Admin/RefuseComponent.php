@@ -39,9 +39,8 @@ class RefuseComponent extends Component
             ->join('niveau_formations', 'demandes.niveau_formation_id','=','niveau_formations.id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
-            ->where('status',5) ->where('annee_id',$year->id)
+            ->where('status',4) ->where('annee_id',$year->id)
             ->where('name','like','%'.$this->search.'%')
-            ->orWhere('numero','like','%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage),
             "year" => $year

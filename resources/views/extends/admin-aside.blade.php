@@ -110,7 +110,7 @@
             </ul>
           @endforeach
 
-        <div class="w-full flex flex-col gap-2 mt-12">
+        {{--<div class="w-full flex flex-col gap-2 mt-12">
           <!-- title & content -->
           <div class="pb-2 px-4 compact-hide">
             <p class="text-title-sm font-medium uppercase text-gray-600 dark:text-gray-400">Statistics</p>
@@ -152,7 +152,7 @@
               <span class="material-symbols-outlined">shopping_cart</span><span class="ml-1 compact-hide">Suivre la demande</span>
             </a>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </aside>

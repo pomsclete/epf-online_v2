@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('info_usuers', function (Blueprint $table) {
             $table->id();
-            $table->text('telephone');
-            $table->text('civilite');
-            $table->text('niveau');
-            $table->text('serie');
-            $table->text('adresse');
+            $table->string('telephone');
+            $table->string('civilite');
+            $table->string('niveau')->nullable();
+            $table->string('serie')->nullable();
+            $table->string('adresse');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

@@ -1,20 +1,15 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
 
 class Profile extends Component
 {
-   
-    
     #[Layout('components.layouts.app')]
     #[Title('Mon profil')]
     public function render()
     {
-       
-        return view('livewire.user.profile');
+        return view('livewire.admin.profile');
     }
 }

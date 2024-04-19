@@ -23,10 +23,11 @@
                 <!-- action -->
                 <div class="flex flex-row gap-3 items-center">
                     <!-- add new -->
-                    <button data-type="dialogs" wire:click="openModal()" class="btn relative flex flex-row items-center justify-center gap-x-2 py-2 px-4 rounded-[6.25rem] hover:shadow-md text-sm tracking-[.00714em] font-medium bg-primary-600 text-white dark:bg-primary-200 dark:text-primary-800">
-                        <span class="material-symbols-outlined">add</span>
-                        Ajouter
-                    </button>
+                    <div class="relative z-0">
+                        <select  id="examplexs" class="w-full h-12 block leading-5 relative pt-1 px-4 rounded-t text-gray-800 bg-gray-100 dark:bg-gray-700 border-b focus:border-b-2 border-gray-500 dark:border-gray-400 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:focus:border-primary-200">
+                          <option selected>{{ $year->annee_scolaire }}</option>
+                        </select>
+                      </div>
                 </div>
             </div>
 
@@ -36,7 +37,7 @@
                     <div class="pb-4 flex justify-center">
                         <button class="btn-elevated relative inline-flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25rem] shadow-lg text-md tracking-[.00714em] font-medium bg-surface-100 hover:bg-surface-200 focus:bg-surface-400 text-primary-600 dark:bg-surfacedark-100 dark:hover:bg-surfacedark-200 dark:focus:bg-surfacedark-400 dark:text-primary-200">
                             <span class="material-symbols-outlined">
-                                calendar_month
+                                folder_limited
                                 </span> Demandes refusées
                           </button>
                     </div>

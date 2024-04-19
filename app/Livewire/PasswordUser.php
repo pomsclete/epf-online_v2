@@ -5,8 +5,6 @@ namespace App\Livewire;
 use auth;
 use App\Models\User;
 use Livewire\Component;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -66,8 +64,7 @@ class PasswordUser extends Component
 }
 
     
-    #[Layout('components.layouts.app')]
-    #[Title('Paramétrage')]
+    
     public function render()
     {
         $userAu =  User::select('name','email','users.created_at','telephone','civilite','niveau','serie','adresse')

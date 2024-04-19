@@ -94,19 +94,16 @@
             </div>
         </div>
 
-        <div class="flex-shrink max-w-full order-1 md:order-2 w-full md:w-1/2 lg:w-2/3 relative rounded-t-lg md:rounded-xl oveflow-hidden bg-primary-200" style="background-image: url({{ asset('src/img/cover/cover1.jpg') }});background-repeat: repeat;">
+        <div class="flex-shrink max-w-full order-1 md:order-2 w-full md:w-1/2 lg:w-2/3 relative rounded-t-lg md:rounded-xl oveflow-hidden bg-primary-200" style="background-image: url({{ asset('admin/src/img/mosaique.webp') }});object-fit:cover;background-repeat: no-repeat;background-size:100% 100%;">
             <div class="flex items-center justify-center w-full h-full">
-                <!-- logo -->
-                <div class="relative">
-                    <a href="../analytics/analytics-dashboard.html" class="sidebar-logo py-6 flex items-center w-full">
-                        <div class="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-primary-800 font-bold text-lg">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">AF</span>
-                        </div>
-                        <h4 class="text-2xl md:text-4xl font-medium tracking-wide text-white ml-2 md:ml-4">Bienvenue sur EPF ONLINE</h4>
-                    </a>
-                </div>
+              <!-- logo -->
+              <div class="relative">
+                <a role="button" class="sidebar-logo py-6 flex items-center  w-full">
+                  <h4 class="text-2xl md:text-4xl font-medium tracking-wide text-white text-shadow shadow-indigo-500/50 ml-2 md:ml-4">BIENVENUE SUR EPF ONLINE</h4>
+                </a>
+              </div>
             </div>
-        </div>
+          </div>
     </div>
 
 

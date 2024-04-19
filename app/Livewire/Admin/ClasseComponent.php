@@ -19,7 +19,7 @@ class ClasseComponent extends Component
     use WithoutUrlPagination;
     use LivewireAlert;
 
-    public $perPage = 2;
+    public $perPage = 10;
     public $sortField = 'intitule';
     public $sortDirection = 'asc';
     public $isFormOpen = false;

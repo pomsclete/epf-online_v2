@@ -20,7 +20,6 @@ class AddDocClasseComponent extends Component
 
     public function mount(){
         $this->documents =  Document::orderBy('libelle','ASC')->get();
-        $this->classe = 1;
     }
 
     public function confirmed($id)
@@ -96,7 +95,7 @@ class AddDocClasseComponent extends Component
         return view('livewire.admin.add-doc-classe-component',[
             'docus' => DocumentClasse::select('libelle','document_classes.id','obligation','document_classes.etat')
                                         ->join('documents','documents.id','=','document_classes.document_id')
-                                        ->where('niveau_formation_id',3)->get()
+                                        ->where('niveau_formation_id',$this->classe)->get()
         ]);
     }
 }

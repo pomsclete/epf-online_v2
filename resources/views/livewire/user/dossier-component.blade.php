@@ -12,7 +12,7 @@
                     <!-- card -->
                     <div class="px-6 py-8 flex flex-col gap-6 rounded-xl bg-white dark:bg-gray-900">
                         <!-- detail info -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-gray-500">
+                        <div class="grid grid-cols-2 sm:grid-cols-3  gap-6 text-gray-500">
                             <div class="flex flex-col gap-1">
                                 <p class="text-title-sm flex flex-row items-center gap-2">
                                     <i class="material-symbols-outlined">folder</i> Dossier</p>
@@ -27,11 +27,6 @@
                                 <p class="text-title-sm flex flex-row items-center gap-2">
                                     <i class="material-symbols-outlined">calendar_clock</i> Durée</p>
                                 <h5 class="text-body-md text-gray-600 dark:text-gray-400">{{ $duree }}</h5>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <p class="text-title-sm flex flex-row items-center gap-2">
-                                    <i class="material-symbols-outlined">payments</i> Coût</p>
-                                <h5 class="text-body-md text-gray-600 dark:text-gray-400">1,650,000/an</h5>
                             </div>
                         </div>
                         <hr class="h-0 border-b-1 border-gray-200 dark:border-gray-700">
@@ -199,7 +194,7 @@
 
                 <!-- Form -->
                 <form class="flex flex-col gap-4 py-2 px-6 md:max-h-[45vw] overflow-auto scrollbars show">
-                    <div class="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+                    {{--<div class="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                         </svg>
@@ -208,7 +203,7 @@
                             Si vous devez télécharger plus de deux fichier, merci d'utiliser ce lien :
                             <a class="text-red-600" href="https://www.ilovepdf.com/fr/fusionner_pdf" target="_blank">www.ilovepdf.com/fr/fusionner_pdf</a> pour fusionner les documents avant de les téléchargés
                         </div>
-                    </div>
+                    </div>--}}
                     @if($editModalOpen)
 
 

@@ -6,12 +6,25 @@ use App\Models\Annee;
 use App\Models\Demande;
 use Livewire\Component;
 use App\Models\Document;
+use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use Livewire\WithoutUrlPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class FinaliseComponent extends Component
 {
+    use WithPagination;
+    use WithoutUrlPagination;
+
+    public $perPage = 10;
+    public $sortField = 'demandes.id';
+    public $sortDirection = 'desc';
+
+    protected $queryString = ['sortField', 'sortDirection'];
+
+    public $search = '';
+
     #[Layout('components.layouts.app')]
     #[Title('Demandes Finalisées')]
     public function render()
@@ -24,8 +37,10 @@ class FinaliseComponent extends Component
             ->join('niveau_formations', 'demandes.niveau_formation_id','=','niveau_formations.id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
-            ->where('status',5) ->where('annee_id',$year->id)
-            ->get(),
+            ->where('status',5)->where('annee_id',$year->id)
+            ->where('name','like','%'.$this->search.'%')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage),
             "year" => $year
         ]);
     }

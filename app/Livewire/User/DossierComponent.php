@@ -106,20 +106,28 @@ class DossierComponent extends Component
     }
 
     public function mount(){
-        $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree','demandes.id as demandId')
+        if(!empty($this->numero)){
+            $niv = NiveauFormation::select('intitule','designation','niveau_formations.id as idNiv','numero','demandes.created_at','formations.duree','demandes.id as demandId')
             ->join('formations', 'formations.id','=','niveau_formations.formation_id')
             ->join('niveaux','niveaux.id','=','niveau_formations.niveau_id')
             ->join('demandes', 'demandes.niveau_formation_id','=','niveau_formations.id')
             ->where('demandes.numero',$this->numero)
             ->first();
-
-        $this->intitule = $niv->intitule;
-        $this->designation = $niv->designation;
-        $this->num = $niv->numero;
-        $this->duree = $niv->duree;
-        $this->date = $niv->created_at;
-        $this->idNiv = $niv->idNiv;
-        $this->demandId = $niv->demandId;
+                if($niv){
+                    $this->intitule = $niv->intitule;
+                    $this->designation = $niv->designation;
+                    $this->num = $niv->numero;
+                    $this->duree = $niv->duree;
+                    $this->date = $niv->created_at;
+                    $this->idNiv = $niv->idNiv;
+                    $this->demandId = $niv->demandId;
+                } else {
+                    abort(404);
+                }
+        } else {
+            abort(404);
+        }
+        
     }
 
     public function verif(){

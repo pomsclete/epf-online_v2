@@ -25,7 +25,7 @@
     {{ $slot }}
 
 
-
+@stack('script')
 <script src="{{ asset('admin/src/js/tailmater.js') }}"></script>
 @livewireScripts
 @stack('scripts')

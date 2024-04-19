@@ -22,6 +22,12 @@ use \App\Livewire\Admin\EnCoursComponent;
 use \App\Livewire\Admin\DeliberationComponent;
 use \App\Livewire\Admin\FinaliseComponent;
 use \App\Livewire\Admin\RefuseComponent;
+use \App\Livewire\Admin\DocClasse;
+use \App\Livewire\Admin\TableauBord;
+use \App\Livewire\Admin\EditPassword as EditPasswordAdmin;
+use \App\Livewire\User\EditPassword as EditPasswordUser;
+use \App\Livewire\User\Profile as userProfile;
+use \App\Livewire\Admin\Profile as adminProfile;
 use App\Http\Controllers\LettreController;
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +58,8 @@ All Admin Routes List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
    
-    Route::get('/admin/home',AdmissionComponent::class)->name('admin.home');
+    Route::get('/admin/dashboard',AdmissionComponent::class)->name('admin.tableau');
+    Route::get('/admin/home',TableauBord::class)->name('admin.home');
     Route::get('/admin/annee', AnneeComponent::class)->name('admin.annee');
     Route::get('/admin/niveau', NiveauComponent::class)->name('admin.niveau');
     Route::get('/admin/document', DocumentComponent::class)->name('admin.document');
@@ -66,6 +73,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/admission/finalise', FinaliseComponent::class)->name('admin.admission.final');
     Route::get('/admin/admission/refuse', RefuseComponent::class)->name('admin.admission.refuse');
     Route::get('/traitement/{numero}', AdminDossier::class)->name('traitement');
+    Route::get('/admin/parametrage', EditPasswordAdmin::class)->name('parametre');
+    Route::get('/admin/profil', adminProfile::class)->name('admin.profile');
+    Route::get('/admin/add-doc-classe/{classe}', DocClasse::class)->name('admin.doc');
 });
 
 /*------------------------------------------
@@ -77,9 +87,9 @@ Route::middleware(['auth', 'user-access:user','verified'])->group(function () {
 
     Route::get('/home', UserDash::class)->name('home');
     Route::get('/dossier/{numero}', DossierComponent::class)->name('dossier');
-    Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/profile', userProfile::class)->name('profile');
     Route::get('/support', Support::class)->name('support');
-    Route::get('/parametrage', PasswordUser::class)->name('parametrage');
+    Route::get('/parametrage', EditPasswordUser::class)->name('parametrage');
     Route::get('/lettre-admission/{numero}', [LettreController::class, 'generatePDF'])->name('lettre-admission');
 });
 
